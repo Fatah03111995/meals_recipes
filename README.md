@@ -1,3 +1,6 @@
 # meals_recipes
 
-A new Flutter project.
+Resources
+
+- vecteezy.com
+- cdn.pixabay.com
