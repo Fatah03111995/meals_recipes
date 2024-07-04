@@ -63,81 +63,85 @@ class SignInPage extends StatelessWidget {
           Expanded(
             child: SizedBox(
               width: 300.w,
-              child: Column(
-                children: [
-                  SizedBox(height: 30.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Assets.ui.google.image(width: 40.w, height: 40.w),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon:
-                            Assets.ui.facebook.image(width: 40.w, height: 40.w),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Assets.ui.apple.image(width: 40.w, height: 40.w),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 30.h),
-                  Row(
-                    children: [
-                      const Expanded(child: Divider()),
-                      Expanded(
-                        child: Text(
-                          ' or using email account ',
-                          style: Textstyles.s.copyWith(color: Colors.black38),
-                          textAlign: TextAlign.center,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: 30.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon:
+                              Assets.ui.google.image(width: 40.w, height: 40.w),
                         ),
-                      ),
-                      const Expanded(child: Divider())
-                    ],
-                  ),
-                  SizedBox(height: 30.h),
-                  InputText(
-                    label: 'e-mail',
-                    hint: 'example@email.com',
-                    icon: Icons.person,
-                    onChanged: (value) {
-                      context.read<SignInBloc>().add(EmailEvent(value));
-                    },
-                  ),
-                  InputText(
-                    label: 'password',
-                    hint: 'keep secret !',
-                    icon: Icons.lock,
-                    isVisible: false,
-                    onChanged: (value) {
-                      context.read<SignInBloc>().add(PasswordEvent(value));
-                    },
-                  ),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      'forgot password ?',
-                      style: Textstyles.s,
+                        IconButton(
+                          onPressed: () {},
+                          icon: Assets.ui.facebook
+                              .image(width: 40.w, height: 40.w),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon:
+                              Assets.ui.apple.image(width: 40.w, height: 40.w),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(height: 40.h),
-                  RoundedRectangleButton(
-                      text: 'Sign In',
+                    SizedBox(height: 30.h),
+                    Row(
+                      children: [
+                        const Expanded(child: Divider()),
+                        Expanded(
+                          child: Text(
+                            ' or using email account ',
+                            style: Textstyles.s.copyWith(color: Colors.black38),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        const Expanded(child: Divider())
+                      ],
+                    ),
+                    SizedBox(height: 30.h),
+                    InputText(
+                      label: 'e-mail',
+                      hint: 'example@email.com',
+                      icon: Icons.person,
+                      onChanged: (value) {
+                        context.read<SignInBloc>().add(EmailEvent(value));
+                      },
+                    ),
+                    InputText(
+                      label: 'password',
+                      hint: 'keep secret !',
+                      icon: Icons.lock,
+                      isVisible: false,
+                      onChanged: (value) {
+                        context.read<SignInBloc>().add(PasswordEvent(value));
+                      },
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'forgot password ?',
+                        style: Textstyles.s,
+                      ),
+                    ),
+                    SizedBox(height: 40.h),
+                    RoundedRectangleButton(
+                        text: 'Sign In',
+                        onTap: () {
+                          SignInState state = context.read<SignInBloc>().state;
+                          print(state);
+                        }),
+                    SizedBox(height: 20.h),
+                    RoundedRectangleButton(
+                      text: 'Sign Up',
                       onTap: () {
-                        SignInState state = context.read<SignInBloc>().state;
-                        print(state);
-                      }),
-                  SizedBox(height: 20.h),
-                  RoundedRectangleButton(
-                    text: 'Sign Up',
-                    onTap: () {
-                      Navigator.pushNamed(context, PathRoute.signUp);
-                    },
-                  )
-                ],
+                        Navigator.pushNamed(context, PathRoute.signUp);
+                      },
+                    )
+                  ],
+                ),
               ),
             ),
           )
