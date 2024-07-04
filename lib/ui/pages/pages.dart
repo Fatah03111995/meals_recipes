@@ -1,13 +1,13 @@
 export 'dashboard/dashboard.dart';
 export 'favourite/favourite.dart';
 export 'home/home.dart';
-export 'profile/profile.dart';
+export 'settings/settings.dart';
 export 'recipe_add/recipe_add.dart';
 export 'recipe_detail/recipe_detail.dart';
 export 'recipe_edit/recipe_edit.dart';
 export 'search/search.dart';
 export 'signin/signin.dart';
-export 'signin/signin_page.dart';
+export 'signin/sign_in_page.dart';
 export 'signup/signup.dart';
 export 'signup/signup_page.dart';
 export 'splash/splash.dart';
