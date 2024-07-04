@@ -25,9 +25,12 @@ class AppRoutes {
         child: const SignInPage(),
       ),
     ),
-    const PageEntity(
+    PageEntity(
       path: PathRoute.signUp,
-      routes: SignUpPage(),
+      routes: BlocProvider(
+        create: (context) => SignUpBloc(),
+        child: const SignUpPage(),
+      ),
     ),
   ];
 

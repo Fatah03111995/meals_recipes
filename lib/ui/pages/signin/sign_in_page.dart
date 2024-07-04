@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/routes/path_route.dart';
 import 'package:meals_recipes/core/themes/my_colors.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
 import 'package:meals_recipes/ui/pages/signin/bloc/sign_in_bloc.dart';
@@ -132,7 +133,9 @@ class SignInPage extends StatelessWidget {
                   SizedBox(height: 20.h),
                   RoundedRectangleButton(
                     text: 'Sign Up',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, PathRoute.signUp);
+                    },
                   )
                 ],
               ),

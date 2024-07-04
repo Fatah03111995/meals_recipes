@@ -23,6 +23,7 @@ class InputText extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 10.h),
         height: 50.w,
         decoration: BoxDecoration(
+          color: Colors.white,
           borderRadius: BorderRadius.circular(20.w),
         ),
         child: TextField(
@@ -53,7 +54,7 @@ class InputText extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20.w),
-              borderSide: const BorderSide(color: Colors.black, width: 2),
+              borderSide: const BorderSide(color: Colors.black, width: 1),
             ),
           ),
         ),
