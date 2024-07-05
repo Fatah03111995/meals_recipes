@@ -4,10 +4,12 @@ import 'package:meals_recipes/core/themes/my_colors.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
 
 class RoundedRectangleButton extends StatelessWidget {
+  final Widget? titleButton;
   final String text;
   final void Function() onTap;
 
   const RoundedRectangleButton({
+    this.titleButton,
     required this.text,
     required this.onTap,
     super.key,
@@ -25,10 +27,11 @@ class RoundedRectangleButton extends StatelessWidget {
           onTap: onTap,
           splashColor: Colors.white.withOpacity(0.2),
           child: Center(
-            child: Text(
-              text,
-              style: Textstyles.smBold.copyWith(color: Colors.white),
-            ),
+            child: titleButton ??
+                Text(
+                  text,
+                  style: Textstyles.smBold.copyWith(color: Colors.white),
+                ),
           ),
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/bloc/user/user.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
 import 'package:meals_recipes/core/themes/my_colors.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
@@ -127,12 +128,36 @@ class SignInPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 40.h),
-                    RoundedRectangleButton(
-                        text: 'Sign In',
-                        onTap: () {
-                          SignInState state = context.read<SignInBloc>().state;
-                          print(state);
-                        }),
+                    Builder(builder: (context) {
+                      UserState userState = context.watch<UserBloc>().state;
+                      print(userState.runtimeType);
+
+                      return RoundedRectangleButton(
+                          titleButton: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (userState is UserStateLoading)
+                                const CircularProgressIndicator(),
+                              if (userState.runtimeType != UserStateLoading)
+                                Text(
+                                  'Sign In',
+                                  style: Textstyles.smBold
+                                      .copyWith(color: Colors.white),
+                                )
+                            ],
+                          ),
+                          text: '',
+                          onTap: () {
+                            print('button clicked');
+                            SignInState state =
+                                context.read<SignInBloc>().state;
+                            context.read<UserBloc>().add(UserEventSignIn(
+                                email: state.email, password: state.password));
+                            if (userState is UserStateDone) {
+                              print(userState.user);
+                            }
+                          });
+                    }),
                     SizedBox(height: 20.h),
                     RoundedRectangleButton(
                       text: 'Sign Up',
