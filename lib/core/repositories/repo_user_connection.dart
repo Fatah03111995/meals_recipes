@@ -42,29 +42,33 @@ class RepoUserConnection {
     return null;
   }
 
-  Future<User?> signUp(
+  static Future<User> signUp(
       {required String userName,
       required String email,
       required String password,
       required String confirmPassword}) async {
+    if (userName.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
+      UtilComponent.toastErr('Please fill the empty column');
+      throw 'please fill empty column';
+    }
+
+    if (password != confirmPassword) {
+      UtilComponent.toastErr('wrong confirm password, please re check');
+      throw 'wrong confirm password, please re check';
+    }
+
     try {
       final UserCredential response =
           await UserConnectionByEmail.signUp(email: email, password: password);
 
       if (response.user != null) {
-        if (response.user!.emailVerified) {
-          response.user!.updateDisplayName(userName).then((value) {
-            UtilComponent.toastSuccess('please sign in');
-            return response.user;
-          });
-        } else {
-          response.user!.sendEmailVerification().then((value) =>
-              response.user!.updateDisplayName(userName).then((value) {
-                UtilComponent.toastWarning(
-                    'Check your inbox and verify your email !');
-                return response.user;
-              }));
-        }
+        await response.user!.sendEmailVerification();
+        UtilComponent.toastWarning('Check your inbox and verify your email !');
+        await response.user!.updateDisplayName(userName);
+        return response.user!;
       }
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
@@ -83,10 +87,11 @@ class RepoUserConnection {
     } catch (e) {
       UtilComponent.toastErr('Unknown Error : ${e.toString()}');
     }
-    return null;
+
+    throw 'BELUM SELESAI BANG';
   }
 
-  Future<void> signOut() async {
+  static Future<void> signOut() async {
     await UserConnectionByEmail.signOut();
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/bloc/user/user.dart';
+import 'package:meals_recipes/core/routes/path_route.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
 import 'package:meals_recipes/ui/pages/signup/bloc/bloc.dart';
 import 'package:meals_recipes/ui/widgets/generated/assets.gen.dart';
@@ -100,13 +102,42 @@ class SignUpPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 40.h),
-                    RoundedRectangleButton(
-                      text: 'Sign Up',
-                      onTap: () {
-                        SignUpState state = context.read<SignUpBloc>().state;
-                        print(state);
-                      },
-                    )
+                    BlocBuilder<UserBloc, UserState>(
+                        bloc: UserBloc(),
+                        builder: (context, state) {
+                          print(state.runtimeType);
+                          return RoundedRectangleButton(
+                            titleButton: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (state is UserStateLoading)
+                                  const CircularProgressIndicator(),
+                                if (state.runtimeType != UserStateLoading)
+                                  Text(
+                                    'Sign Up',
+                                    style: Textstyles.smBold
+                                        .copyWith(color: Colors.white),
+                                  )
+                              ],
+                            ),
+                            text: '',
+                            onTap: () async {
+                              SignUpState state =
+                                  context.read<SignUpBloc>().state;
+                              context.read<UserBloc>().add(UserEventSignUp(
+                                    username: state.username,
+                                    email: state.email,
+                                    password: state.password,
+                                    confimrPassword: state.confirmPassword,
+                                  ));
+
+                              if (state is UserStateDone) {
+                                Navigator.pushNamed(context, PathRoute.signIn);
+                                await context.read<SignUpBloc>().close();
+                              }
+                            },
+                          );
+                        })
                   ],
                 ),
               ),

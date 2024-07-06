@@ -23,6 +23,11 @@ class UserEventSignUp extends UserEvent {
     required this.password,
     required this.confimrPassword,
   });
+
+  @override
+  String toString() {
+    return 'UserEventSignUp(username: $username, email: $email, password: $password, confimrPassword: $confimrPassword)';
+  }
 }
 
 class UserEventSignOut extends UserEvent {}

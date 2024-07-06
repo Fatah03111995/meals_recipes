@@ -10,8 +10,8 @@ class UserStateInitial extends UserState {}
 class UserStateLoading extends UserState {}
 
 class UserStateDone extends UserState {
-  final User? user;
-  const UserStateDone({this.user});
+  final User user;
+  const UserStateDone({required this.user});
 
   @override
   String toString() => 'UserStateDone(user: $user)';

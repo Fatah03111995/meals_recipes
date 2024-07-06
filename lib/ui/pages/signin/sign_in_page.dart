@@ -130,7 +130,6 @@ class SignInPage extends StatelessWidget {
                     SizedBox(height: 40.h),
                     Builder(builder: (context) {
                       UserState userState = context.watch<UserBloc>().state;
-                      print(userState.runtimeType);
 
                       return RoundedRectangleButton(
                           titleButton: Row(
@@ -148,14 +147,12 @@ class SignInPage extends StatelessWidget {
                           ),
                           text: '',
                           onTap: () {
-                            print('button clicked');
                             SignInState state =
                                 context.read<SignInBloc>().state;
+
                             context.read<UserBloc>().add(UserEventSignIn(
                                 email: state.email, password: state.password));
-                            if (userState is UserStateDone) {
-                              print(userState.user);
-                            }
+                            if (userState is UserStateDone) {}
                           });
                     }),
                     SizedBox(height: 20.h),

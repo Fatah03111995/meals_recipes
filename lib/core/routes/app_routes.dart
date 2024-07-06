@@ -3,7 +3,6 @@ import 'package:meals_recipes/core/routes/page_entity.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
 import 'package:meals_recipes/ui/pages/pages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meals_recipes/ui/pages/signin/bloc/sign_in_bloc.dart';
 
 class AppRoutes {
   final List<PageEntity> _allPageEntity = [
