@@ -102,42 +102,41 @@ class SignUpPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 40.h),
-                    BlocBuilder<UserBloc, UserState>(
-                        bloc: UserBloc(),
-                        builder: (context, state) {
-                          print(state.runtimeType);
-                          return RoundedRectangleButton(
-                            titleButton: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                if (state is UserStateLoading)
-                                  const CircularProgressIndicator(),
-                                if (state.runtimeType != UserStateLoading)
-                                  Text(
-                                    'Sign Up',
-                                    style: Textstyles.smBold
-                                        .copyWith(color: Colors.white),
-                                  )
-                              ],
-                            ),
-                            text: '',
-                            onTap: () async {
-                              SignUpState state =
-                                  context.read<SignUpBloc>().state;
-                              context.read<UserBloc>().add(UserEventSignUp(
-                                    username: state.username,
-                                    email: state.email,
-                                    password: state.password,
-                                    confimrPassword: state.confirmPassword,
-                                  ));
-
-                              if (state is UserStateDone) {
-                                Navigator.pushNamed(context, PathRoute.signIn);
-                                await context.read<SignUpBloc>().close();
-                              }
-                            },
-                          );
-                        })
+                    Builder(builder: (context) {
+                      UserState state = context.watch<UserBloc>().state;
+                      print('BUILD');
+                      if (state is UserStateDone) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          Navigator.pushNamed(context, PathRoute.signIn);
+                          context.read<UserBloc>().add(UserEventIntial());
+                        });
+                      }
+                      return RoundedRectangleButton(
+                        titleButton: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (state is UserStateLoading)
+                              const CircularProgressIndicator(),
+                            if (state is! UserStateLoading)
+                              Text(
+                                'Sign Up',
+                                style: Textstyles.smBold
+                                    .copyWith(color: Colors.white),
+                              )
+                          ],
+                        ),
+                        text: '',
+                        onTap: () async {
+                          SignUpState state = context.read<SignUpBloc>().state;
+                          context.read<UserBloc>().add(UserEventSignUp(
+                                username: state.username,
+                                email: state.email,
+                                password: state.password,
+                                confimrPassword: state.confirmPassword,
+                              ));
+                        },
+                      );
+                    })
                   ],
                 ),
               ),

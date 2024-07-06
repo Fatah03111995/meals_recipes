@@ -7,6 +7,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserEventSignIn>(_userEventSignInHandler);
     on<UserEventSignUp>(_userEventSignUpHandler);
     on<UserEventSignOut>(_userEventSignOutHandler);
+    on<UserEventIntial>(
+      (event, emit) {
+        emit(UserStateInitial());
+      },
+    );
   }
 
   void _userEventSignInHandler(UserEventSignIn event, Emitter emit) async {
@@ -30,6 +35,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   void _userEventSignOutHandler(UserEventSignOut event, Emitter emit) async {
     emit(UserStateLoading());
     RepoUserConnection.signOut();
+  }
+
+  @override
+  void onTransition(Transition<UserEvent, UserState> transition) {
+    print(transition);
+    super.onTransition(transition);
   }
 
   @override

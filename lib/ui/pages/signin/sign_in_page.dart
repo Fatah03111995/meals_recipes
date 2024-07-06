@@ -131,13 +131,19 @@ class SignInPage extends StatelessWidget {
                     Builder(builder: (context) {
                       UserState userState = context.watch<UserBloc>().state;
 
+                      if (userState is UserStateDone) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          print('Navigator');
+                        });
+                      }
+
                       return RoundedRectangleButton(
                           titleButton: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               if (userState is UserStateLoading)
                                 const CircularProgressIndicator(),
-                              if (userState.runtimeType != UserStateLoading)
+                              if (userState is! UserStateLoading)
                                 Text(
                                   'Sign In',
                                   style: Textstyles.smBold
@@ -152,7 +158,6 @@ class SignInPage extends StatelessWidget {
 
                             context.read<UserBloc>().add(UserEventSignIn(
                                 email: state.email, password: state.password));
-                            if (userState is UserStateDone) {}
                           });
                     }),
                     SizedBox(height: 20.h),

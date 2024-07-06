@@ -3,6 +3,8 @@ abstract class UserEvent {
   const UserEvent();
 }
 
+class UserEventIntial extends UserEvent {}
+
 class UserEventSignIn extends UserEvent {
   final String email;
   final String password;
