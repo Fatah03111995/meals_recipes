@@ -31,6 +31,10 @@ class AppRoutes {
         child: const SignUpPage(),
       ),
     ),
+    const PageEntity(
+      path: PathRoute.dashboard,
+      routes: Dashboard(),
+    )
   ];
 
   List<PageEntity> _getPageEntity({String? path = ''}) =>

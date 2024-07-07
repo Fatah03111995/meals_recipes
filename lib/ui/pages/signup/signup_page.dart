@@ -104,7 +104,6 @@ class SignUpPage extends StatelessWidget {
                     SizedBox(height: 40.h),
                     Builder(builder: (context) {
                       UserState state = context.watch<UserBloc>().state;
-                      print('BUILD');
                       if (state is UserStateDone) {
                         WidgetsBinding.instance.addPostFrameCallback((_) {
                           Navigator.pushNamed(context, PathRoute.signIn);

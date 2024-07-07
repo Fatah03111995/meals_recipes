@@ -1,15 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meals_recipes/core/exception/user_exception.dart';
 import 'package:meals_recipes/core/services/user_connection_by_email.dart';
 import 'package:meals_recipes/core/utility/util_component.dart';
 
 class RepoUserConnection {
-  static Future<User?> signInByEmail({
+  static Future<User> signInByEmail({
     required String email,
     required String password,
   }) async {
     if (email.isEmpty || password.isEmpty) {
-      UtilComponent.toastErr('Please fill the empty column');
-      return null;
+      throw UserException(message: 'FILL ALL COLUMN');
     }
     try {
       final UserCredential response =
@@ -19,15 +19,13 @@ class RepoUserConnection {
         if (response.user!.emailVerified) {
           UtilComponent.toastSuccess(
               'Welcomeback ${response.user?.displayName ?? ''}!');
-          return response.user;
+          return response.user!;
         } else {
           response.user!.sendEmailVerification().then((valuse) =>
-              UtilComponent.toastWarning(
-                  'Check your inbox and Verify your email !'));
-          return null;
+              throw UserException(
+                  message: 'Check your inbox and Verify your email !'));
         }
       }
-      return null;
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'user-not-found':
@@ -36,10 +34,13 @@ class RepoUserConnection {
         default:
           UtilComponent.toastErr('wrong e-mail or password');
       }
+    } on UserException catch (e) {
+      print(e.message);
+      UtilComponent.toastWarning(e.message);
     } catch (e) {
       UtilComponent.toastErr('Unknown Error : ${e.toString()}');
     }
-    return null;
+    throw Exception('FAILED SIGN IN');
   }
 
   static Future<User> signUp(
@@ -51,13 +52,11 @@ class RepoUserConnection {
         email.isEmpty ||
         password.isEmpty ||
         confirmPassword.isEmpty) {
-      UtilComponent.toastErr('Please fill the empty column');
-      throw 'please fill empty column';
+      throw UserException(message: 'please fill empty column');
     }
 
     if (password != confirmPassword) {
-      UtilComponent.toastErr('wrong confirm password, please re check');
-      throw 'wrong confirm password, please re check';
+      throw UserException(message: 'wrong confirm password, please re check');
     }
 
     try {
@@ -84,11 +83,13 @@ class RepoUserConnection {
         default:
           UtilComponent.toastErr('plese recheck your input');
       }
+    } on UserException catch (e) {
+      UtilComponent.toastWarning(e.message);
     } catch (e) {
       UtilComponent.toastErr('Unknown Error : ${e.toString()}');
     }
 
-    throw 'BELUM SELESAI BANG';
+    throw Exception('FAILED SIGN UP');
   }
 
   static Future<void> signOut() async {

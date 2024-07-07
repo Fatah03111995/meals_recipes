@@ -9,6 +9,8 @@ class UserStateInitial extends UserState {}
 
 class UserStateLoading extends UserState {}
 
+class UserStateFailed extends UserState {}
+
 class UserStateDone extends UserState {
   final User user;
   const UserStateDone({required this.user});

@@ -17,6 +17,7 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('BUILD SCAFFOLD');
     return Scaffold(
       body: Column(
         children: [
@@ -129,11 +130,12 @@ class SignInPage extends StatelessWidget {
                     ),
                     SizedBox(height: 40.h),
                     Builder(builder: (context) {
+                      print('BUILD BUILDER WIDGET');
                       UserState userState = context.watch<UserBloc>().state;
 
                       if (userState is UserStateDone) {
                         WidgetsBinding.instance.addPostFrameCallback((_) {
-                          print('Navigator');
+                          Navigator.pushNamed(context, PathRoute.dashboard);
                         });
                       }
 
