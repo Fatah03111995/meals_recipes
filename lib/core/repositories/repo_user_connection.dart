@@ -8,9 +8,6 @@ class RepoUserConnection {
     required String email,
     required String password,
   }) async {
-    if (email.isEmpty || password.isEmpty) {
-      throw UserException(message: 'FILL ALL COLUMN');
-    }
     try {
       final UserCredential response =
           await UserConnectionByEmail.signIn(email: email, password: password);
@@ -21,7 +18,7 @@ class RepoUserConnection {
               'Welcomeback ${response.user?.displayName ?? ''}!');
           return response.user!;
         } else {
-          response.user!.sendEmailVerification().then((valuse) =>
+          response.user!.sendEmailVerification().then((value) =>
               throw UserException(
                   message: 'Check your inbox and Verify your email !'));
         }
@@ -48,20 +45,13 @@ class RepoUserConnection {
       required String email,
       required String password,
       required String confirmPassword}) async {
-    if (userName.isEmpty ||
-        email.isEmpty ||
-        password.isEmpty ||
-        confirmPassword.isEmpty) {
-      throw UserException(message: 'please fill empty column');
-    }
-
-    if (password != confirmPassword) {
-      throw UserException(message: 'wrong confirm password, please re check');
-    }
-
     try {
-      final UserCredential response =
-          await UserConnectionByEmail.signUp(email: email, password: password);
+      final UserCredential response = await UserConnectionByEmail.signUp(
+        userName: userName,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+      );
 
       if (response.user != null) {
         await response.user!.sendEmailVerification();
