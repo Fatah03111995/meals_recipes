@@ -8,5 +8,6 @@ class PathRoute {
   static const String search = '/search';
   static const String add = '/add';
   static const String favorites = '/favorites';
+  static const String profile = '/profile';
   static const String settings = '/settings';
 }

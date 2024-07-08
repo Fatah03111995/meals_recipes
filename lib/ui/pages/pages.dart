@@ -5,7 +5,7 @@ export 'recipe_add/recipe_add.dart';
 export 'recipe_detail/recipe_detail.dart';
 export 'recipe_edit/recipe_edit.dart';
 export 'search/search.dart';
-export 'settings/settings.dart';
+export 'profile/profile.dart';
 export 'signin/bloc/sign_in_bloc.dart';
 export 'signin/bloc/sign_in_event.dart';
 export 'signin/bloc/sign_in_state.dart';

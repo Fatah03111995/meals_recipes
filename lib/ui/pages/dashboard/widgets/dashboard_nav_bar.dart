@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_recipes/core/routes/app_routes.dart';
 import 'package:meals_recipes/core/routes/dashboard_entity.dart';
+import 'package:meals_recipes/core/themes/my_colors.dart';
+import 'package:meals_recipes/core/themes/textstyles.dart';
 import 'package:meals_recipes/ui/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:meals_recipes/ui/pages/dashboard/bloc/dashboard_event.dart';
 
@@ -15,7 +17,8 @@ class DashboardNavBar extends StatelessWidget {
     List<DashboardEntity> dashboardEntity = AppRoutes.dashboardEntities;
     int currentIndex = context.watch<DashboardBloc>().state.index;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+      clipBehavior: Clip.hardEdge,
+      margin: EdgeInsets.symmetric(horizontal: 25.w, vertical: 20.h),
       height: 50.h,
       decoration: BoxDecoration(
           color: Colors.white,
@@ -28,11 +31,9 @@ class DashboardNavBar extends StatelessWidget {
                 offset: const Offset(0, 10))
           ]),
       child: ListView.builder(
-          itemCount: 4,
+          itemCount: dashboardEntity.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            double displayWidth = MediaQuery.of(context).size.width.w;
-
             return InkWell(
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
@@ -47,18 +48,18 @@ class DashboardNavBar extends StatelessWidget {
                   AnimatedContainer(
                     duration: const Duration(seconds: 1),
                     curve: Curves.fastLinearToSlowEaseIn,
-                    width: index == currentIndex
-                        ? 0.32 * displayWidth
-                        : 0.18 * displayWidth,
+                    width: index == currentIndex ? 110.w : 30.w,
                     alignment: Alignment.center,
+
+                    // ---------------------------------- BACKGROUND ICON
                     child: AnimatedContainer(
                       duration: const Duration(seconds: 1),
                       curve: Curves.fastLinearToSlowEaseIn,
                       height: index == currentIndex ? 50.h : 0,
-                      width: index == currentIndex ? 0.32 * displayWidth : 0,
+                      width: index == currentIndex ? 110.w : 30.w,
                       decoration: BoxDecoration(
                           color: index == currentIndex
-                              ? Colors.blueAccent.withOpacity(0.2)
+                              ? MyColors.blue1.withOpacity(0.2)
                               : Colors.transparent,
                           borderRadius: BorderRadius.circular(25.w)),
                     ),
@@ -67,8 +68,8 @@ class DashboardNavBar extends StatelessWidget {
                     duration: const Duration(seconds: 1),
                     curve: Curves.fastLinearToSlowEaseIn,
                     width: index == currentIndex
-                        ? displayWidth * 0.32
-                        : displayWidth * 0.18,
+                        ? 110.w //  ----------- width to cover icon + text
+                        : 50.w, // ------------ width to cover icon
                     alignment: Alignment.center,
                     child: Stack(
                       children: [
@@ -77,24 +78,18 @@ class DashboardNavBar extends StatelessWidget {
                             AnimatedContainer(
                               duration: const Duration(seconds: 1),
                               curve: Curves.fastLinearToSlowEaseIn,
-                              width: index == currentIndex
-                                  ? displayWidth * 0.13
-                                  : 0,
+                              width: index == currentIndex ? 40.w : 0,
                             ),
                             AnimatedOpacity(
                               opacity: index == currentIndex ? 1 : 0,
                               duration: const Duration(seconds: 1),
                               curve: Curves.fastLinearToSlowEaseIn,
                               child: Text(
-                                index == currentIndex
-                                    ? dashboardEntity[index].title
-                                    : '',
-                                style: const TextStyle(
-                                  color: Colors.blueAccent,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                ),
-                              ),
+                                  index == currentIndex
+                                      ? dashboardEntity[index].title
+                                      : '',
+                                  style: Textstyles.sBold
+                                      .copyWith(color: MyColors.blue1)),
                             )
                           ],
                         ),
@@ -103,13 +98,11 @@ class DashboardNavBar extends StatelessWidget {
                             AnimatedContainer(
                               duration: const Duration(seconds: 1),
                               curve: Curves.fastLinearToSlowEaseIn,
-                              width: index == currentIndex
-                                  ? displayWidth * 0.03
-                                  : 20,
+                              width: 10.w,
                             ),
                             Icon(
                               dashboardEntity[index].icon,
-                              size: displayWidth * 0.076,
+                              size: 25.w,
                               color: index == currentIndex
                                   ? Colors.blueAccent
                                   : Colors.black26,

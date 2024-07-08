@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class RecipeAdd extends StatelessWidget {
-  const RecipeAdd({super.key});
+class Profile extends StatelessWidget {
+  const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('RECIPE ADD'),
+      child: Text('PROFILE'),
     );
   }
 }

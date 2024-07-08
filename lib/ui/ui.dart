@@ -1,7 +1,7 @@
 export 'pages/dashboard/dashboard.dart';
 export 'pages/favourite/favourite.dart';
 export 'pages/home/home.dart';
-export 'pages/settings/settings.dart';
+export 'pages/profile/profile.dart';
 export 'pages/recipe_add/recipe_add.dart';
 export 'pages/recipe_detail/recipe_detail.dart';
 export 'pages/recipe_edit/recipe_edit.dart';

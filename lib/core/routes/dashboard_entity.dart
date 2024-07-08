@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:meals_recipes/core/routes/path_route.dart';
 
 class DashboardEntity {
   final String title;
