@@ -4,4 +4,9 @@ class PathRoute {
   static const String signIn = '/signIn';
   static const String signUp = '/signUp';
   static const String dashboard = '/dashboard';
+  static const String home = '/home';
+  static const String search = '/search';
+  static const String add = '/add';
+  static const String favorites = '/favorites';
+  static const String settings = '/settings';
 }
