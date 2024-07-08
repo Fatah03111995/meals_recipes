@@ -9,6 +9,9 @@ class RepoUserConnection {
     required String password,
   }) async {
     try {
+      if (email.isEmpty || password.isEmpty) {
+        throw UserException(message: 'Please fill all column');
+      }
       final UserCredential response =
           await UserConnectionByEmail.signIn(email: email, password: password);
 
@@ -18,9 +21,9 @@ class RepoUserConnection {
               'Welcomeback ${response.user?.displayName ?? ''}!');
           return response.user!;
         } else {
-          response.user!.sendEmailVerification().then((value) =>
-              throw UserException(
-                  message: 'Check your inbox and Verify your email !'));
+          await response.user!.sendEmailVerification();
+          throw UserException(
+              message: 'Check your inbox and Verify your email !');
         }
       }
     } on FirebaseAuthException catch (e) {
@@ -32,7 +35,6 @@ class RepoUserConnection {
           UtilComponent.toastErr('wrong e-mail or password');
       }
     } on UserException catch (e) {
-      print(e.message);
       UtilComponent.toastWarning(e.message);
     } catch (e) {
       UtilComponent.toastErr('Unknown Error : ${e.toString()}');
@@ -46,6 +48,17 @@ class RepoUserConnection {
       required String password,
       required String confirmPassword}) async {
     try {
+      if (userName.isEmpty ||
+          email.isEmpty ||
+          password.isEmpty ||
+          confirmPassword.isEmpty) {
+        throw UserException(message: 'please fill empty column');
+      }
+
+      if (password != confirmPassword) {
+        throw UserException(message: 'wrong confirm password, please re check');
+      }
+
       final UserCredential response = await UserConnectionByEmail.signUp(
         userName: userName,
         email: email,
