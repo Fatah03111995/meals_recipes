@@ -43,5 +43,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   void _userEventSignOutHandler(UserEventSignOut event, Emitter emit) async {
     emit(UserStateLoading());
     RepoUserConnection.signOut();
+    emit(UserStateInitial());
   }
 }
