@@ -1,11 +1,11 @@
 export 'pages/dashboard/dashboard.dart';
-export 'pages/favourite/favourite.dart';
-export 'pages/home/home.dart';
-export 'pages/profile/profile.dart';
+export 'pages/favourite/favourite_page.dart';
+export 'pages/home/home_page.dart';
+export 'pages/profile/profile_page.dart';
 export 'pages/recipe_add/recipe_add.dart';
 export 'pages/recipe_detail/recipe_detail.dart';
 export 'pages/recipe_edit/recipe_edit.dart';
-export 'pages/search/search.dart';
+export 'pages/search/search_page.dart';
 export 'pages/signin/sign_in_page.dart';
 export 'pages/signup/signup_page.dart';
 export 'pages/splash/splash_page.dart';

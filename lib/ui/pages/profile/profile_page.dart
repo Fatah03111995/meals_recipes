@@ -7,13 +7,12 @@ import 'package:meals_recipes/core/themes/textstyles.dart';
 import 'package:meals_recipes/ui/pages/profile/widgets/profile_item.dart';
 import 'package:meals_recipes/ui/widgets/generated/assets.gen.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({super.key});
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     List<ItemProperties> itemsProperties = [
-      ItemProperties(title: 'Your Recipies', icon: Icons.receipt, onTap: () {}),
       ItemProperties(
           title: 'Notification', icon: Icons.notifications, onTap: () {}),
       ItemProperties(title: 'Dark Mode', icon: Icons.mode_night, onTap: () {}),
@@ -43,7 +42,7 @@ class Profile extends StatelessWidget {
           ],
         ),
         Container(
-          margin: EdgeInsets.only(top: 50.h, left: 15.w, right: 15.w),
+          margin: EdgeInsets.only(top: 70.h, left: 15.w, right: 15.w),
           padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
           decoration: BoxDecoration(
             color: Colors.white,

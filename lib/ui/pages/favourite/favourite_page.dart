@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Search extends StatelessWidget {
-  const Search({super.key});
+class FavouritePage extends StatelessWidget {
+  const FavouritePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('SEARCH'),
+      child: Text('FAVOURITE'),
     );
   }
 }

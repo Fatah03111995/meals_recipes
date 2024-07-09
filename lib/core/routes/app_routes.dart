@@ -5,6 +5,7 @@ import 'package:meals_recipes/core/routes/path_route.dart';
 import 'package:meals_recipes/ui/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:meals_recipes/ui/pages/pages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meals_recipes/ui/pages/recipies/recipies_page.dart';
 
 class AppRoutes {
   final List<PageEntity> _allPageEntity = [
@@ -61,32 +62,32 @@ class AppRoutes {
         const DashboardEntity(
           title: 'Home',
           path: PathRoute.home,
-          page: Home(),
+          page: HomePage(),
           icon: Icons.home,
         ),
         const DashboardEntity(
           title: 'Search',
           icon: Icons.search,
           path: PathRoute.search,
-          page: Search(),
+          page: SearchPage(),
         ),
         const DashboardEntity(
-          title: 'Add',
-          icon: Icons.add_circle,
+          title: 'yours',
+          icon: Icons.receipt,
           path: PathRoute.add,
-          page: RecipeAdd(),
+          page: RecipiesPage(),
         ),
         const DashboardEntity(
           title: 'Love',
           icon: Icons.favorite,
           path: PathRoute.favorites,
-          page: Favourite(),
+          page: FavouritePage(),
         ),
         const DashboardEntity(
           title: 'profile',
           icon: Icons.person,
           path: PathRoute.settings,
-          page: Profile(),
+          page: ProfilePage(),
         ),
       ];
 }

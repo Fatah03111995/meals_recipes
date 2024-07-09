@@ -1,11 +1,11 @@
 export 'dashboard/dashboard.dart';
-export 'favourite/favourite.dart';
-export 'home/home.dart';
+export 'favourite/favourite_page.dart';
+export 'home/home_page.dart';
 export 'recipe_add/recipe_add.dart';
 export 'recipe_detail/recipe_detail.dart';
 export 'recipe_edit/recipe_edit.dart';
-export 'search/search.dart';
-export 'profile/profile.dart';
+export 'search/search_page.dart';
+export 'profile/profile_page.dart';
 export 'signin/bloc/sign_in_bloc.dart';
 export 'signin/bloc/sign_in_event.dart';
 export 'signin/bloc/sign_in_state.dart';
