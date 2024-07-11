@@ -20,7 +20,7 @@ class RoundedRectangleButton extends StatelessWidget {
     return SizedBox(
       height: 50.h,
       child: Material(
-        color: MyColors.blue1,
+        color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(20.w),
         child: InkWell(
           borderRadius: BorderRadius.circular(20.w),
@@ -30,7 +30,7 @@ class RoundedRectangleButton extends StatelessWidget {
             child: titleButton ??
                 Text(
                   text,
-                  style: Textstyles.smBold.copyWith(color: Colors.white),
+                  style: Textstyles.smBold,
                 ),
           ),
         ),

@@ -115,7 +115,9 @@ class SignUpPage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             if (state is UserStateLoading)
-                              const CircularProgressIndicator(),
+                              const CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
                             if (state is! UserStateLoading)
                               Text(
                                 'Sign Up',

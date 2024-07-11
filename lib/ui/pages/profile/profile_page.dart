@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/bloc/theme/theme_cubit.dart';
 import 'package:meals_recipes/core/bloc/user/user.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
@@ -12,10 +13,17 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color cardColor = Theme.of(context).cardColor;
+
     List<ItemProperties> itemsProperties = [
       ItemProperties(
           title: 'Notification', icon: Icons.notifications, onTap: () {}),
-      ItemProperties(title: 'Dark Mode', icon: Icons.mode_night, onTap: () {}),
+      ItemProperties(
+          title: 'Dark Mode',
+          icon: Icons.mode_night,
+          onTap: () {
+            context.read<ThemeCubit>().changeTheme();
+          }),
       ItemProperties(title: 'Language', icon: Icons.translate, onTap: () {}),
     ];
 
@@ -37,7 +45,8 @@ class ProfilePage extends StatelessWidget {
             SizedBox(height: 20.h),
             Text(
               'Abdul Fatah',
-              style: Textstyles.l.copyWith(color: Colors.white),
+              style:
+                  Textstyles.l.copyWith(color: Theme.of(context).primaryColor),
             )
           ],
         ),
@@ -45,7 +54,7 @@ class ProfilePage extends StatelessWidget {
           margin: EdgeInsets.only(top: 70.h, left: 15.w, right: 15.w),
           padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: cardColor,
             borderRadius: BorderRadius.all(
               Radius.circular(30.w),
             ),
@@ -75,7 +84,7 @@ class ProfilePage extends StatelessWidget {
             margin: EdgeInsets.only(top: 20.h, left: 15.w, right: 15.w),
             padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.all(
                 Radius.circular(30.w),
               ),

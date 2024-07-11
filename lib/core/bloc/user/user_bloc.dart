@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meals_recipes/core/bloc/user/user.dart';
-import 'package:meals_recipes/core/repositories/repo_user_connection.dart';
+import 'package:meals_recipes/core/data/repositories/repo_user_connection.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserStateInitial()) {

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
 import 'package:meals_recipes/core/themes/my_colors.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
+import 'package:meals_recipes/global.dart';
 import 'package:meals_recipes/ui/pages/welcome/bloc/welcome_bloc.dart';
 import 'package:meals_recipes/ui/pages/welcome/bloc/welcome_event.dart';
 import 'package:meals_recipes/ui/pages/welcome/bloc/welcome_state.dart';
@@ -75,6 +76,7 @@ class WelcomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20.w),
                       child: InkWell(
                         onTap: () {
+                          Global.globalPreferences.setIsDeviceFirstOpen(false);
                           Navigator.pushReplacementNamed(
                               context, PathRoute.signIn);
                         },

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_recipes/core/bloc/user/user.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
-import 'package:meals_recipes/core/themes/my_colors.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
 import 'package:meals_recipes/ui/pages/signin/bloc/sign_in_bloc.dart';
 import 'package:meals_recipes/ui/pages/signin/bloc/sign_in_event.dart';
@@ -17,6 +16,10 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color primaryDark = Theme.of(context).primaryColorDark;
+    Color primaryLight = Theme.of(context).primaryColorLight;
+    Color primaryColor = Theme.of(context).primaryColor;
+
     return Scaffold(
       body: Column(
         children: [
@@ -39,7 +42,7 @@ class SignInPage extends StatelessWidget {
               height: 150.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: MyColors.blue1.withOpacity(0.7),
+                color: primaryDark.withOpacity(0.7),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -91,15 +94,20 @@ class SignInPage extends StatelessWidget {
                     SizedBox(height: 30.h),
                     Row(
                       children: [
-                        const Expanded(child: Divider()),
+                        Expanded(
+                            child: Divider(
+                                color: Theme.of(context).primaryColorLight)),
                         Expanded(
                           child: Text(
                             ' or using email account ',
-                            style: Textstyles.s.copyWith(color: Colors.black38),
+                            style: Textstyles.s.copyWith(
+                                color: Theme.of(context).primaryColorLight),
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        const Expanded(child: Divider())
+                        Expanded(
+                            child: Divider(
+                                color: Theme.of(context).primaryColorLight)),
                       ],
                     ),
                     SizedBox(height: 30.h),
@@ -142,13 +150,14 @@ class SignInPage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               if (userState is UserStateLoading)
-                                const CircularProgressIndicator(),
+                                CircularProgressIndicator(
+                                  color: primaryLight,
+                                ),
                               if (userState is! UserStateLoading)
-                                Text(
-                                  'Sign In',
-                                  style: Textstyles.smBold
-                                      .copyWith(color: Colors.white),
-                                )
+                                Text('Sign In',
+                                    style: Textstyles.smBold.copyWith(
+                                      color: primaryLight,
+                                    ))
                             ],
                           ),
                           text: '',

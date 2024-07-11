@@ -2,7 +2,6 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
-import 'package:meals_recipes/core/themes/my_colors.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
 import 'package:meals_recipes/ui/widgets/generated/assets.gen.dart';
 
@@ -18,7 +17,7 @@ class SplashPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: MyColors.blue1,
+      backgroundColor: Theme.of(context).primaryColorDark,
       body: SafeArea(
         child: Center(
           child: SizedBox(

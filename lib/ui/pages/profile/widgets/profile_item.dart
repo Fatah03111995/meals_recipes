@@ -22,11 +22,15 @@ class ProfileItem extends StatelessWidget {
       onPressed: onTap,
       child: Row(
         children: [
-          Icon(icon),
+          Icon(
+            icon,
+            color: Theme.of(context).primaryColorLight,
+          ),
           SizedBox(width: 20.w),
           Text(
             title,
-            style: Textstyles.m,
+            style: Textstyles.m
+                .copyWith(color: Theme.of(context).primaryColorLight),
           ),
         ],
       ),

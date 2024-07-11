@@ -25,7 +25,7 @@ class DashboardNavBar extends StatelessWidget {
           borderRadius: BorderRadius.circular(25.w),
           boxShadow: [
             BoxShadow(
-                color: Colors.black.withOpacity(0.3),
+                color: Theme.of(context).primaryColorLight.withOpacity(0.3),
                 spreadRadius: 1,
                 blurRadius: 30,
                 offset: const Offset(0, 10))
@@ -59,7 +59,7 @@ class DashboardNavBar extends StatelessWidget {
                       width: index == currentIndex ? 110.w : 30.w,
                       decoration: BoxDecoration(
                           color: index == currentIndex
-                              ? MyColors.blue1.withOpacity(0.2)
+                              ? Theme.of(context).primaryColor.withOpacity(0.5)
                               : Colors.transparent,
                           borderRadius: BorderRadius.circular(25.w)),
                     ),
@@ -88,8 +88,9 @@ class DashboardNavBar extends StatelessWidget {
                                   index == currentIndex
                                       ? dashboardEntity[index].title
                                       : '',
-                                  style: Textstyles.sBold
-                                      .copyWith(color: MyColors.blue1)),
+                                  style: Textstyles.sBold.copyWith(
+                                      color:
+                                          Theme.of(context).primaryColorDark)),
                             )
                           ],
                         ),
@@ -104,7 +105,7 @@ class DashboardNavBar extends StatelessWidget {
                               dashboardEntity[index].icon,
                               size: 25.w,
                               color: index == currentIndex
-                                  ? Colors.blueAccent
+                                  ? Theme.of(context).primaryColorDark
                                   : Colors.black26,
                             )
                           ],

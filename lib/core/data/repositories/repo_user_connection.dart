@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meals_recipes/core/exception/user_exception.dart';
-import 'package:meals_recipes/core/services/user_connection_by_email.dart';
+import 'package:meals_recipes/core/data/providers/user_connection_by_email.dart';
 import 'package:meals_recipes/core/utility/util_component.dart';
 
 class RepoUserConnection {
