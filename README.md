@@ -2,6 +2,7 @@
 
 feature
 
+- Dark Mode, Light Mode
 - splash screen, welcome screen
 - sign in, sign up, authentication user using firebase
 - local data storage using hive
@@ -16,6 +17,7 @@ packages
 - Hive Data Storage
 - Envied - Environment variable
 - Google Fonts - UI Fonts
+- ION Icon - more icon
 
 Resources
 
