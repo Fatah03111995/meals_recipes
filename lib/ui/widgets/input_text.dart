@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/themes/mode_themes.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
 
 class InputText extends StatelessWidget {
@@ -18,45 +19,44 @@ class InputText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color primaryLight = Theme.of(context).primaryColorLight;
-    Color primaryDark = Theme.of(context).primaryColorDark;
+    MyTheme appColor = ModeThemes.lightMode;
 
     return Container(
       margin: EdgeInsets.only(bottom: 10.h),
       height: 50.w,
       decoration: BoxDecoration(
-        color: primaryLight,
+        color: appColor.containerColor,
         borderRadius: BorderRadius.circular(20.w),
       ),
       child: TextField(
         onChanged: onChanged,
         obscureText: !isVisible,
-        style: Textstyles.sm.copyWith(color: primaryDark),
+        style: Textstyles.sm.copyWith(color: appColor.textColor),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: Textstyles.smBold.copyWith(color: primaryDark),
+          labelStyle: Textstyles.smBold.copyWith(color: appColor.textColor),
           floatingLabelBehavior: FloatingLabelBehavior.never,
           alignLabelWithHint: true,
           hintText: hint,
-          hintStyle:
-              Textstyles.sm.copyWith(color: primaryDark.withOpacity(0.5)),
+          hintStyle: Textstyles.sm
+              .copyWith(color: appColor.textColor.withOpacity(0.5)),
           prefixIcon: Align(
             alignment: Alignment.center,
             child: Icon(
               icon,
-              color: primaryDark,
+              color: appColor.textColor,
             ),
           ),
           prefixIconConstraints:
               BoxConstraints(maxWidth: 40.w, maxHeight: 30.w),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.w),
-            borderSide:
-                BorderSide(color: primaryDark.withOpacity(0.5), width: 2),
+            borderSide: BorderSide(
+                color: appColor.textColor.withOpacity(0.5), width: 2),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.w),
-            borderSide: BorderSide(color: primaryDark, width: 2),
+            borderSide: BorderSide(color: appColor.textColor, width: 2),
           ),
         ),
       ),

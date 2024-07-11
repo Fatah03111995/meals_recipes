@@ -10,6 +10,7 @@ void main() async {
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (_) => UserBloc()),
     BlocProvider(create: (_) => ThemeCubit()),
+    BlocProvider(create: (_) => DashboardBloc()),
   ], child: const MainApp()));
 }
 
@@ -21,12 +22,9 @@ class MainApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
-    ThemeState themeState = context.watch<ThemeCubit>().state;
-
     return ScreenUtilInit(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: themeState.modeThemes,
         onGenerateRoute: AppRoutes().onGenerateRoute,
       ),
     );

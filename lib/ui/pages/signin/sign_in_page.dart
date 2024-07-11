@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/bloc/theme/theme_cubit.dart';
 import 'package:meals_recipes/core/bloc/user/user.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
+import 'package:meals_recipes/core/themes/mode_themes.dart';
+import 'package:meals_recipes/core/themes/my_colors.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
 import 'package:meals_recipes/ui/pages/signin/bloc/sign_in_bloc.dart';
 import 'package:meals_recipes/ui/pages/signin/bloc/sign_in_event.dart';
@@ -16,11 +19,11 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color primaryDark = Theme.of(context).primaryColorDark;
-    Color primaryLight = Theme.of(context).primaryColorLight;
-    Color primaryColor = Theme.of(context).primaryColor;
+    MyTheme appColor =
+        context.watch<ThemeCubit>().state.modeThemes ?? ModeThemes.lightMode;
 
     return Scaffold(
+      backgroundColor: appColor.scaffoldBgColor,
       body: Column(
         children: [
           Container(
@@ -42,7 +45,7 @@ class SignInPage extends StatelessWidget {
               height: 150.w,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: primaryDark.withOpacity(0.7),
+                color: appColor.primaryColor.withOpacity(0.7),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -94,20 +97,16 @@ class SignInPage extends StatelessWidget {
                     SizedBox(height: 30.h),
                     Row(
                       children: [
-                        Expanded(
-                            child: Divider(
-                                color: Theme.of(context).primaryColorLight)),
+                        Expanded(child: Divider(color: appColor.textColor)),
                         Expanded(
                           child: Text(
                             ' or using email account ',
-                            style: Textstyles.s.copyWith(
-                                color: Theme.of(context).primaryColorLight),
+                            style: Textstyles.s
+                                .copyWith(color: appColor.textColor),
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        Expanded(
-                            child: Divider(
-                                color: Theme.of(context).primaryColorLight)),
+                        Expanded(child: Divider(color: appColor.textColor)),
                       ],
                     ),
                     SizedBox(height: 30.h),
@@ -132,7 +131,7 @@ class SignInPage extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: Text(
                         'forgot password ?',
-                        style: Textstyles.s,
+                        style: Textstyles.s.copyWith(color: appColor.textColor),
                       ),
                     ),
                     SizedBox(height: 40.h),
@@ -151,12 +150,12 @@ class SignInPage extends StatelessWidget {
                             children: [
                               if (userState is UserStateLoading)
                                 CircularProgressIndicator(
-                                  color: primaryLight,
+                                  color: appColor.secondaryColor,
                                 ),
                               if (userState is! UserStateLoading)
                                 Text('Sign In',
                                     style: Textstyles.smBold.copyWith(
-                                      color: primaryLight,
+                                      color: MyColors.dark100,
                                     ))
                             ],
                           ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/bloc/theme/theme_cubit.dart';
 import 'package:meals_recipes/core/bloc/user/user.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
+import 'package:meals_recipes/core/themes/mode_themes.dart';
+import 'package:meals_recipes/core/themes/my_colors.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
 import 'package:meals_recipes/ui/pages/signup/bloc/bloc.dart';
 import 'package:meals_recipes/ui/widgets/generated/assets.gen.dart';
@@ -14,7 +17,10 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MyTheme appColor =
+        context.watch<ThemeCubit>().state.modeThemes ?? ModeThemes.lightMode;
     return Scaffold(
+      backgroundColor: appColor.scaffoldBgColor,
       body: Stack(
         children: [
           Align(
@@ -47,7 +53,7 @@ class SignUpPage extends StatelessWidget {
             child: Container(
               width: 300.w,
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.2),
+                color: MyColors.dark800.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(20.w),
               ),
               child: SingleChildScrollView(
@@ -98,7 +104,7 @@ class SignUpPage extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: Text(
                         'forgot password ?',
-                        style: Textstyles.s,
+                        style: Textstyles.s.copyWith(color: appColor.textColor),
                       ),
                     ),
                     SizedBox(height: 40.h),

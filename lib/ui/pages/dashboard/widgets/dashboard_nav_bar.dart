@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/bloc/theme/theme_cubit.dart';
 import 'package:meals_recipes/core/routes/app_routes.dart';
 import 'package:meals_recipes/core/routes/dashboard_entity.dart';
+import 'package:meals_recipes/core/themes/mode_themes.dart';
 import 'package:meals_recipes/core/themes/my_colors.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
 import 'package:meals_recipes/ui/pages/dashboard/bloc/dashboard_bloc.dart';
@@ -15,6 +17,7 @@ class DashboardNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<DashboardEntity> dashboardEntity = AppRoutes.dashboardEntities;
+
     int currentIndex = context.watch<DashboardBloc>().state.index;
     return Container(
       clipBehavior: Clip.hardEdge,
@@ -59,7 +62,7 @@ class DashboardNavBar extends StatelessWidget {
                       width: index == currentIndex ? 110.w : 30.w,
                       decoration: BoxDecoration(
                           color: index == currentIndex
-                              ? Theme.of(context).primaryColor.withOpacity(0.5)
+                              ? MyColors.blue1.withOpacity(0.5)
                               : Colors.transparent,
                           borderRadius: BorderRadius.circular(25.w)),
                     ),
@@ -88,9 +91,8 @@ class DashboardNavBar extends StatelessWidget {
                                   index == currentIndex
                                       ? dashboardEntity[index].title
                                       : '',
-                                  style: Textstyles.sBold.copyWith(
-                                      color:
-                                          Theme.of(context).primaryColorDark)),
+                                  style: Textstyles.sBold
+                                      .copyWith(color: Colors.black)),
                             )
                           ],
                         ),
@@ -105,7 +107,7 @@ class DashboardNavBar extends StatelessWidget {
                               dashboardEntity[index].icon,
                               size: 25.w,
                               color: index == currentIndex
-                                  ? Theme.of(context).primaryColorDark
+                                  ? Colors.black
                                   : Colors.black26,
                             )
                           ],

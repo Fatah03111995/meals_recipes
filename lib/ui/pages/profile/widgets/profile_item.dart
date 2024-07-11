@@ -1,6 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/bloc/theme/theme_cubit.dart';
+import 'package:meals_recipes/core/themes/mode_themes.dart';
 
 import 'package:meals_recipes/core/themes/textstyles.dart';
 
@@ -18,19 +21,20 @@ class ProfileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MyTheme appColor =
+        context.watch<ThemeCubit>().state.modeThemes ?? ModeThemes.lightMode;
     return TextButton(
       onPressed: onTap,
       child: Row(
         children: [
           Icon(
             icon,
-            color: Theme.of(context).primaryColorLight,
+            color: appColor.textColor,
           ),
           SizedBox(width: 20.w),
           Text(
             title,
-            style: Textstyles.m
-                .copyWith(color: Theme.of(context).primaryColorLight),
+            style: Textstyles.m.copyWith(color: appColor.textColor),
           ),
         ],
       ),

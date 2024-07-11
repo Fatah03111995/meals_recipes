@@ -34,12 +34,9 @@ class AppRoutes {
         child: const SignUpPage(),
       ),
     ),
-    PageEntity(
+    const PageEntity(
       path: PathRoute.dashboard,
-      routes: BlocProvider(
-        create: (context) => DashboardBloc(),
-        child: const Dashboard(),
-      ),
+      routes: Dashboard(),
     )
   ];
 

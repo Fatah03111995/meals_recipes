@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_recipes/core/bloc/theme/theme_cubit.dart';
 import 'package:meals_recipes/core/bloc/user/user.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
+import 'package:meals_recipes/core/themes/mode_themes.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
 import 'package:meals_recipes/ui/pages/profile/widgets/profile_item.dart';
 import 'package:meals_recipes/ui/widgets/generated/assets.gen.dart';
@@ -13,7 +14,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color cardColor = Theme.of(context).cardColor;
+    MyTheme appColor =
+        context.watch<ThemeCubit>().state.modeThemes ?? ModeThemes.lightMode;
 
     List<ItemProperties> itemsProperties = [
       ItemProperties(
@@ -22,7 +24,7 @@ class ProfilePage extends StatelessWidget {
           title: 'Dark Mode',
           icon: Icons.mode_night,
           onTap: () {
-            context.read<ThemeCubit>().changeTheme();
+            context.read<ThemeCubit>().changeMode();
           }),
       ItemProperties(title: 'Language', icon: Icons.translate, onTap: () {}),
     ];
@@ -45,8 +47,7 @@ class ProfilePage extends StatelessWidget {
             SizedBox(height: 20.h),
             Text(
               'Abdul Fatah',
-              style:
-                  Textstyles.l.copyWith(color: Theme.of(context).primaryColor),
+              style: Textstyles.l.copyWith(color: appColor.textColor),
             )
           ],
         ),
@@ -54,7 +55,7 @@ class ProfilePage extends StatelessWidget {
           margin: EdgeInsets.only(top: 70.h, left: 15.w, right: 15.w),
           padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
           decoration: BoxDecoration(
-            color: cardColor,
+            color: appColor.containerColor,
             borderRadius: BorderRadius.all(
               Radius.circular(30.w),
             ),
@@ -84,7 +85,7 @@ class ProfilePage extends StatelessWidget {
             margin: EdgeInsets.only(top: 20.h, left: 15.w, right: 15.w),
             padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
+              color: appColor.primaryColor,
               borderRadius: BorderRadius.all(
                 Radius.circular(30.w),
               ),
