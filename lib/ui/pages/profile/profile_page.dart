@@ -6,6 +6,7 @@ import 'package:meals_recipes/core/bloc/user/user.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
 import 'package:meals_recipes/core/themes/mode_themes.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
+import 'package:meals_recipes/global.dart';
 import 'package:meals_recipes/ui/pages/profile/widgets/profile_item.dart';
 import 'package:meals_recipes/ui/widgets/generated/assets.gen.dart';
 
@@ -95,7 +96,8 @@ class ProfilePage extends StatelessWidget {
               title: 'Log Out',
               onTap: () {
                 context.read<UserBloc>().add(UserEventSignOut());
-                Navigator.pushNamed(context, PathRoute.signIn);
+                Global.globalPreferences.setUserToken('');
+                Navigator.pushReplacementNamed(context, PathRoute.signIn);
               },
             ))
       ],

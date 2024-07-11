@@ -9,7 +9,10 @@ void main() async {
   await Global.init();
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (_) => UserBloc()),
-    BlocProvider(create: (_) => ThemeCubit()),
+    BlocProvider(
+      create: (_) => ThemeCubit(),
+      lazy: false,
+    ),
     BlocProvider(create: (_) => DashboardBloc()),
   ], child: const MainApp()));
 }
@@ -21,6 +24,11 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+
+    bool isDarkMode = Global.globalPreferences.getIsDarkMode();
+    isDarkMode
+        ? context.read<ThemeCubit>().emitDarkMode()
+        : context.read<ThemeCubit>().emitLightMode();
 
     return ScreenUtilInit(
       child: MaterialApp(

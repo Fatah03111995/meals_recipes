@@ -30,7 +30,8 @@ class GlobalPreferences {
   }
 
   bool getIsLogin() {
-    return _pref.getBool(Constants.STORAGE_USER_TOKEN) != null;
+    return _pref.getString(Constants.STORAGE_USER_TOKEN) != null &&
+        _pref.getString(Constants.STORAGE_USER_TOKEN)!.isNotEmpty;
   }
 
   bool getIsDarkMode() {

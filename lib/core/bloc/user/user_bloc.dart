@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meals_recipes/core/bloc/user/user.dart';
 import 'package:meals_recipes/core/data/repositories/repo_user_connection.dart';
+import 'package:meals_recipes/global.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserStateInitial()) {
@@ -19,6 +20,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       final response = await RepoUserConnection.signInByEmail(
           email: event.email, password: event.password);
+
+      Global.globalPreferences.setUserToken(response.uid);
       emit(UserStateDone(user: response));
     } catch (e) {
       emit(UserStateFailed());

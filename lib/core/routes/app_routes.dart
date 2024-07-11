@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meals_recipes/core/routes/dashboard_entity.dart';
 import 'package:meals_recipes/core/routes/page_entity.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
-import 'package:meals_recipes/ui/pages/dashboard/bloc/dashboard_bloc.dart';
+import 'package:meals_recipes/global.dart';
 import 'package:meals_recipes/ui/pages/pages.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meals_recipes/ui/pages/recipies/recipies_page.dart';
@@ -45,11 +45,31 @@ class AppRoutes {
 
   Route onGenerateRoute(RouteSettings settings) {
     List<PageEntity> pageEntity = _getPageEntity(path: settings.name);
+    bool isLogin = Global.globalPreferences.getIsLogin();
+    bool isFirstTime = Global.globalPreferences.getIsDeviceFirstOpen();
 
     if (pageEntity.isNotEmpty) {
-      return MaterialPageRoute(builder: (_) => pageEntity.first.routes);
+      if (settings.name == PathRoute.welcome && !isFirstTime) {
+        if (isLogin) {
+          // -------------------------HAS LOGGED IN -------------
+          return MaterialPageRoute(
+              builder: (_) =>
+                  _getPageEntity(path: PathRoute.dashboard).first.routes);
+        }
+
+        // ----------------------- NOT FIRST TIME INSTALL ----------------
+        return MaterialPageRoute(
+            builder: (_) =>
+                _getPageEntity(path: PathRoute.signIn).first.routes);
+      }
+
+      if (isLogin) {
+        // --------------------------- PUSH NAMED --------------------
+        return MaterialPageRoute(builder: (_) => pageEntity.first.routes);
+      }
     }
 
+    //------------------------------- DEFAULT ---------------------------
     return MaterialPageRoute(
         builder: (_) => _getPageEntity(path: PathRoute.signIn).first.routes);
   }
