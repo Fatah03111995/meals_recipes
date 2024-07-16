@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:meals_recipes/core/bloc/theme/theme_cubit.dart';
 import 'package:meals_recipes/core/bloc/user/user.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
@@ -78,20 +79,26 @@ class SignInPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         IconButton(
-                          onPressed: () {},
-                          icon:
-                              Assets.ui.google.image(width: 40.w, height: 40.w),
-                        ),
+                            onPressed: () {},
+                            icon: Icon(
+                              Ionicons.logo_google,
+                              color: appColor.textColor,
+                              size: 40.w,
+                            )),
                         IconButton(
-                          onPressed: () {},
-                          icon: Assets.ui.facebook
-                              .image(width: 40.w, height: 40.w),
-                        ),
+                            onPressed: () {},
+                            icon: Icon(
+                              Ionicons.logo_apple,
+                              color: appColor.textColor,
+                              size: 40.w,
+                            )),
                         IconButton(
-                          onPressed: () {},
-                          icon:
-                              Assets.ui.apple.image(width: 40.w, height: 40.w),
-                        ),
+                            onPressed: () {},
+                            icon: Icon(
+                              Ionicons.logo_facebook,
+                              color: appColor.textColor,
+                              size: 40.w,
+                            )),
                       ],
                     ),
                     SizedBox(height: 30.h),

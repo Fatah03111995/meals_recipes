@@ -8,7 +8,8 @@ feature
 - local data storage using hive
 - add, edit, delete data recipes
 - favourite
-- search recipe by title, ingredient, category
+- search recipe by title, ingredient
+- filter based on category
 
 packages
 
