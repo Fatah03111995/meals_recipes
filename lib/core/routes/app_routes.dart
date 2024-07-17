@@ -63,10 +63,8 @@ class AppRoutes {
                 _getPageEntity(path: PathRoute.signIn).first.routes);
       }
 
-      if (isLogin) {
-        // --------------------------- PUSH NAMED --------------------
-        return MaterialPageRoute(builder: (_) => pageEntity.first.routes);
-      }
+      // --------------------------- PUSH NAMED --------------------
+      return MaterialPageRoute(builder: (_) => pageEntity.first.routes);
     }
 
     //------------------------------- DEFAULT ---------------------------

@@ -70,6 +70,7 @@ class SignUpPage extends StatelessWidget {
                             .add(SignUpUsernameEvent(value));
                       },
                     ),
+                    SizedBox(height: 10.h),
                     InputText(
                       label: 'e-mail',
                       hint: 'example@email.com',
@@ -78,6 +79,7 @@ class SignUpPage extends StatelessWidget {
                         context.read<SignUpBloc>().add(SignUpEmailEvent(value));
                       },
                     ),
+                    SizedBox(height: 10.h),
                     InputText(
                       label: 'password',
                       hint: 'keep secret !',
@@ -89,6 +91,7 @@ class SignUpPage extends StatelessWidget {
                             .add(SignUpPasswordEvent(value));
                       },
                     ),
+                    SizedBox(height: 10.h),
                     InputText(
                       label: 'confirm password',
                       hint: 'keep secret !',
@@ -100,6 +103,7 @@ class SignUpPage extends StatelessWidget {
                             .add(SignUpConfirmPasswordEvent(value));
                       },
                     ),
+                    SizedBox(height: 10.h),
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(

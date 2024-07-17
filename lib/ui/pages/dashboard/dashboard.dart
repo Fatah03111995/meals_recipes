@@ -19,12 +19,11 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     MyTheme appColor =
         context.watch<ThemeCubit>().state.modeThemes ?? ModeThemes.lightMode;
-    List<DashboardEntity> dashboardEntities = AppRoutes.dashboardEntities;
     int index = context.watch<DashboardBloc>().state.index;
     return Scaffold(
         backgroundColor: appColor.scaffoldBgColor,
         body: Center(
-          child: dashboardEntities[index].page,
+          child: AppRoutes.dashboardEntities[index].page,
         ),
         bottomNavigationBar: const DashboardNavBar());
   }

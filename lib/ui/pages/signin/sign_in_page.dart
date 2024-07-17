@@ -125,6 +125,7 @@ class SignInPage extends StatelessWidget {
                         context.read<SignInBloc>().add(EmailEvent(value));
                       },
                     ),
+                    SizedBox(height: 10.h),
                     InputText(
                       label: 'password',
                       hint: 'keep secret !',
@@ -134,6 +135,7 @@ class SignInPage extends StatelessWidget {
                         context.read<SignInBloc>().add(PasswordEvent(value));
                       },
                     ),
+                    SizedBox(height: 10.h),
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(

@@ -6,15 +6,17 @@ import 'package:meals_recipes/core/themes/textstyles.dart';
 class InputText extends StatelessWidget {
   final String label;
   final String hint;
-  final IconData icon;
+  final IconData? icon;
+  final Widget? suffixIcon;
   final bool isVisible;
   final void Function(String?) onChanged;
   const InputText(
       {super.key,
       required this.label,
       required this.hint,
-      required this.icon,
+      this.icon,
       required this.onChanged,
+      this.suffixIcon,
       this.isVisible = true});
 
   @override
@@ -22,7 +24,6 @@ class InputText extends StatelessWidget {
     MyTheme appColor = ModeThemes.lightMode;
 
     return Container(
-      margin: EdgeInsets.only(bottom: 10.h),
       height: 50.w,
       decoration: BoxDecoration(
         color: appColor.containerColor,
@@ -40,15 +41,18 @@ class InputText extends StatelessWidget {
           hintText: hint,
           hintStyle: Textstyles.sm
               .copyWith(color: appColor.textColor.withOpacity(0.5)),
-          prefixIcon: Align(
-            alignment: Alignment.center,
-            child: Icon(
-              icon,
-              color: appColor.textColor,
-            ),
-          ),
-          prefixIconConstraints:
-              BoxConstraints(maxWidth: 40.w, maxHeight: 30.w),
+          prefixIcon: icon != null
+              ? Align(
+                  alignment: Alignment.center,
+                  child: Icon(
+                    icon,
+                    color: appColor.textColor,
+                  ),
+                )
+              : null,
+          prefixIconConstraints: icon != null
+              ? BoxConstraints(maxWidth: 40.w, maxHeight: 30.w)
+              : null,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.w),
             borderSide: BorderSide(
@@ -58,6 +62,7 @@ class InputText extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.w),
             borderSide: BorderSide(color: appColor.textColor, width: 2),
           ),
+          suffixIcon: suffixIcon,
         ),
       ),
     );

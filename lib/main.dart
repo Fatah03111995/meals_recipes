@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_recipes/global.dart';
 import 'package:meals_recipes/lib.dart';
+import 'package:meals_recipes/ui/pages/search/bloc/search_bloc.dart';
 
 void main() async {
   await Global.init();
@@ -14,6 +15,7 @@ void main() async {
       lazy: false,
     ),
     BlocProvider(create: (_) => DashboardBloc()),
+    BlocProvider(create: (_) => SearchBloc()),
   ], child: const MainApp()));
 }
 

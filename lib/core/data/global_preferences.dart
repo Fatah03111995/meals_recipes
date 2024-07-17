@@ -22,7 +22,7 @@ class GlobalPreferences {
   }
 
   bool getIsDeviceFirstOpen() {
-    return _pref.getBool(Constants.STORAGE_DEVICE_FIRST_OPEN) ?? false;
+    return _pref.getBool(Constants.STORAGE_DEVICE_FIRST_OPEN) ?? true;
   }
 
   Future<void> setUserToken(String value) async {
