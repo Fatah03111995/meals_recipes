@@ -19,9 +19,10 @@ class SearchEventOnChangeIngredients extends SearchEvent {
     required this.ingredients,
     this.listSearchIngredients = const [],
   }) {
+    String ingredientsToLowerCase = ingredients.toLowerCase();
     String ingredientsDeleteSpace = '';
-    for (int i = 0; i < ingredients.length; i++) {
-      if (ingredients[i] != ' ') {
+    for (int i = 0; i < ingredientsToLowerCase.length; i++) {
+      if (ingredientsToLowerCase[i] != ' ') {
         ingredientsDeleteSpace += ingredients[i];
       }
     }

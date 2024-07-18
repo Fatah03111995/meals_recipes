@@ -18,7 +18,6 @@ class SplashPage extends StatelessWidget {
     Future.delayed(
       const Duration(milliseconds: 5000),
       () => Navigator.pushReplacementNamed(context, PathRoute.welcome),
-      // () => Navigator.pushReplacementNamed(context, PathRoute.welcome),
     );
 
     return Scaffold(

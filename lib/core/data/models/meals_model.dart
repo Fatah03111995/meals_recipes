@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 enum Complexity {
   simple,
   challenging,
@@ -17,6 +18,7 @@ class Meal {
     required this.title,
     required this.imageUrl,
     required this.ingredients,
+    required this.detailIngredients,
     required this.steps,
     required this.duration,
     required this.complexity,
@@ -31,7 +33,9 @@ class Meal {
   final List<String> categories;
   final String title;
   final String imageUrl;
+
   final List<String> ingredients;
+  final List<String> detailIngredients;
   final List<String> steps;
   final int duration;
   final Complexity complexity;
@@ -40,4 +44,9 @@ class Meal {
   final bool isLactoseFree;
   final bool isVegan;
   final bool isVegetarian;
+
+  @override
+  String toString() {
+    return 'Meal(id: $id, categories: $categories, title: $title, imageUrl: $imageUrl, ingredients: $ingredients, detailIngredients: $detailIngredients, steps: $steps, duration: $duration, complexity: $complexity, affordability: $affordability, isGlutenFree: $isGlutenFree, isLactoseFree: $isLactoseFree, isVegan: $isVegan, isVegetarian: $isVegetarian)';
+  }
 }

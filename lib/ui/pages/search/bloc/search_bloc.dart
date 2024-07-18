@@ -23,20 +23,26 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   void _onSearch(SearchEventSearch event, Emitter emit) {
     List<Meal> listMeals = event.listData;
     List<Meal> filteredData = listMeals;
-
     if (state.title.isNotEmpty) {
-      filteredData =
-          listMeals.where((meal) => meal.title.contains(state.title)).toList();
+      filteredData = listMeals
+          .where((meal) => meal.title
+              .toLowerCase()
+              .contains(state.title.toLowerCase().trim()))
+          .toList();
     }
 
     if (state.listSearchIngredients.isNotEmpty) {
+      print('MENCARI ${state.listSearchIngredients}');
       filteredData = listMeals.where((meal) {
+        List<String> ingredientsToLowerCase =
+            meal.ingredients.map((item) => item.toLowerCase()).toList();
         return state.listSearchIngredients
-            .every((itemSearch) => meal.ingredients.contains(itemSearch));
+            .every((itemSearch) => ingredientsToLowerCase.contains(itemSearch));
       }).toList();
+      print(filteredData);
     }
 
-    state.copyWith(filteredData: filteredData);
+    emit(state.copyWith(filteredData: filteredData));
   }
 
   void _onChangeIsAdvanceSearchActive(

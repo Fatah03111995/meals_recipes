@@ -70,6 +70,14 @@ const dummyMeals = [
         'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg/800px-Spaghetti_Bolognese_mit_Parmesan_oder_Grana_Padano.jpg',
     duration: 20,
     ingredients: [
+      'Tomato',
+      'Olive Oil',
+      'Onion',
+      'Spaghetti',
+      'Spices',
+      'Cheese'
+    ],
+    detailIngredients: [
       '4 Tomatoes',
       '1 Tablespoon of Olive Oil',
       '1 Onion',
@@ -102,7 +110,8 @@ const dummyMeals = [
     imageUrl:
         'https://cdn.pixabay.com/photo/2018/07/11/21/51/toast-3532016_1280.jpg',
     duration: 10,
-    ingredients: [
+    ingredients: ['White Bread', 'Ham', 'Pineapple', 'Cheese', 'Butter'],
+    detailIngredients: [
       '1 Slice White Bread',
       '1 Slice Ham',
       '1 Slice Pineapple',
@@ -132,6 +141,14 @@ const dummyMeals = [
         'https://cdn.pixabay.com/photo/2014/10/23/18/05/burger-500054_1280.jpg',
     duration: 45,
     ingredients: [
+      'Cattle Hack',
+      'Tomato',
+      'Cucumber',
+      'Onion',
+      'Ketchup',
+      'Burger Buns'
+    ],
+    detailIngredients: [
       '300g Cattle Hack',
       '1 Tomato',
       '1 Cucumber',
@@ -163,6 +180,16 @@ const dummyMeals = [
         'https://cdn.pixabay.com/photo/2018/03/31/19/29/schnitzel-3279045_1280.jpg',
     duration: 60,
     ingredients: [
+      'Veal',
+      'Egg',
+      'Bread Crumbs',
+      'Flour',
+      'Butter',
+      'Vegetable Oil',
+      'Salt',
+      'Lemon Slices'
+    ],
+    detailIngredients: [
       '8 Veal Cutlets',
       '4 Eggs',
       '200g Bread Crumbs',
@@ -201,6 +228,18 @@ const dummyMeals = [
     duration: 15,
     ingredients: [
       'Arugula',
+      'Lettuce',
+      'Parsley',
+      'Fennel',
+      'Salmon',
+      'Mustard',
+      'Balsamic Vinegar',
+      'Olive Oil',
+      'Salt',
+      'Pepper'
+    ],
+    detailIngredients: [
+      'Arugula',
       'Lamb\'s Lettuce',
       'Parsley',
       'Fennel',
@@ -235,6 +274,13 @@ const dummyMeals = [
         'https://cdn.pixabay.com/photo/2017/05/01/05/18/pastry-2274750_1280.jpg',
     duration: 240,
     ingredients: [
+      'Gelatine',
+      'Orange',
+      'Sugar',
+      'Yoghurt',
+      'Cream',
+    ],
+    detailIngredients: [
       '4 Sheets of Gelatine',
       '150ml Orange Juice',
       '80g Sugar',
@@ -270,6 +316,16 @@ const dummyMeals = [
         'https://cdn.pixabay.com/photo/2018/07/10/21/23/pancake-3529653_1280.jpg',
     duration: 20,
     ingredients: [
+      'Flour',
+      'Baking Powder',
+      'Salt',
+      'White Sugar',
+      'Milk',
+      'Egg',
+      'Butter',
+      'melted',
+    ],
+    detailIngredients: [
       '1 1/2 Cups all-purpose Flour',
       '3 1/2 Teaspoons Baking Powder',
       '1 Teaspoon Salt',
@@ -301,6 +357,15 @@ const dummyMeals = [
         'https://cdn.pixabay.com/photo/2018/06/18/16/05/indian-food-3482749_1280.jpg',
     duration: 35,
     ingredients: [
+      'Chicken',
+      'Onion',
+      'Garlic',
+      'Ginger',
+      'Almonds',
+      'Cayenne Pepper',
+      'Coconut Milk',
+    ],
+    detailIngredients: [
       '4 Chicken Breasts',
       '1 Onion',
       '2 Cloves of Garlic',
@@ -334,6 +399,19 @@ const dummyMeals = [
         'https://cdn.pixabay.com/photo/2014/08/07/21/07/souffle-412785_1280.jpg',
     duration: 45,
     ingredients: [
+      'Butter',
+      'Sugar',
+      'Chocolate',
+      'Butter',
+      'Flour',
+      'Milk',
+      'Salt',
+      'Cayenne Pepper',
+      'Egg Yolk',
+      'Egg Whites',
+      'Tartar',
+    ],
+    detailIngredients: [
       '1 Teaspoon melted Butter',
       '2 Tablespoons white Sugar',
       '2 Ounces 70% dark Chocolate, broken into pieces',
@@ -385,6 +463,15 @@ const dummyMeals = [
         'https://cdn.pixabay.com/photo/2018/04/09/18/26/asparagus-3304997_1280.jpg',
     duration: 30,
     ingredients: [
+      'White and Green Asparagus',
+      '30g Pine Nuts',
+      '300g Cherry Tomatoes',
+      'Salad',
+      'Salt',
+      'Pepper',
+      'Olive Oil'
+    ],
+    detailIngredients: [
       'White and Green Asparagus',
       '30g Pine Nuts',
       '300g Cherry Tomatoes',

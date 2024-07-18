@@ -15,6 +15,9 @@ class SearchPage extends StatelessWidget {
         context.watch<ThemeCubit>().state.modeThemes ?? ModeThemes.lightMode;
     bool isAdvanceSearchActive =
         context.watch<SearchBloc>().state.isAdvanceSearchActive;
+    bool isLoading = context.watch<SearchBloc>().state.isLoading;
+
+    List<Meal> meals = context.watch<SearchBloc>().state.filteredData;
 
     return Container(
         margin: const EdgeInsets.only(top: kToolbarHeight),
@@ -33,18 +36,34 @@ class SearchPage extends StatelessWidget {
                   top: Radius.circular(10.w),
                 ),
               ),
-              child: GridView.builder(
-                  padding: EdgeInsets.all(0),
-                  itemCount: 10,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.7,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
-                  ),
-                  itemBuilder: (context, index) {
-                    return MealCard();
-                  }),
+              child: meals.isEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Assets.ui.employee4.image(height: 150.h),
+                          Text(
+                            'Try Search / Search Another One',
+                            style: Textstyles.mBold,
+                          ),
+                        ],
+                      ),
+                    )
+                  : GridView.builder(
+                      padding: const EdgeInsets.all(0),
+                      itemCount: meals.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.6,
+                        mainAxisSpacing: 5,
+                        crossAxisSpacing: 5,
+                      ),
+                      itemBuilder: (context, index) {
+                        return MealCard(
+                          data: meals[index],
+                        );
+                      }),
             ),
             Container(
               color: appColor.scaffoldBgColor,
@@ -55,14 +74,26 @@ class SearchPage extends StatelessWidget {
                   InputText(
                     label: 'Search',
                     hint: 'title...',
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      context
+                          .read<SearchBloc>()
+                          .add(SearchEventOnChangeTitle(title: value ?? ''));
+                    },
                     suffixIcon: !isAdvanceSearchActive
-                        ? IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.search,
-                              color: appColor.primaryColor,
-                            ))
+                        ? isLoading
+                            ? CircularProgressIndicator(
+                                color: appColor.primaryColor,
+                              )
+                            : IconButton(
+                                onPressed: () {
+                                  context.read<SearchBloc>().add(
+                                      const SearchEventSearch(
+                                          listData: dummyMeals));
+                                },
+                                icon: Icon(
+                                  Icons.search,
+                                  color: appColor.primaryColor,
+                                ))
                         : null,
                   ),
                   if (isAdvanceSearchActive) SizedBox(height: 10.h),
@@ -70,18 +101,31 @@ class SearchPage extends StatelessWidget {
                     InputText(
                         label: 'Ingredients',
                         hint: 'egg, milk, butter, etc',
-                        onChanged: (value) {}),
+                        onChanged: (value) {
+                          context.read<SearchBloc>().add(
+                              SearchEventOnChangeIngredients(
+                                  ingredients: value ?? ''));
+                        }),
                   if (isAdvanceSearchActive) SizedBox(height: 10.h),
                   if (isAdvanceSearchActive)
                     SizedBox(
                       height: 40.h,
                       child: RoundedRectangleButton(
                         text: '',
-                        onTap: () {},
-                        titleButton: Text(
-                          'Search',
-                          style: Textstyles.m.copyWith(color: Colors.white),
-                        ),
+                        onTap: () {
+                          print('WORK');
+                          context.read<SearchBloc>().add(
+                              const SearchEventSearch(listData: dummyMeals));
+                        },
+                        titleButton: isLoading
+                            ? CircularProgressIndicator(
+                                color: appColor.primaryColor,
+                              )
+                            : Text(
+                                'Search',
+                                style:
+                                    Textstyles.m.copyWith(color: Colors.white),
+                              ),
                       ),
                     ),
                   SizedBox(height: 10.h),
