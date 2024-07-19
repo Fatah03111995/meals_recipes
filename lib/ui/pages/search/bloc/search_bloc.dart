@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meals_recipes/core/data/dummy.dart';
 import 'package:meals_recipes/core/data/models/meals_model.dart';
 import 'package:meals_recipes/ui/pages/search/bloc/search_event.dart';
 import 'package:meals_recipes/ui/pages/search/bloc/search_state.dart';
@@ -21,28 +22,33 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   void _onSearch(SearchEventSearch event, Emitter emit) {
-    List<Meal> listMeals = event.listData;
-    List<Meal> filteredData = listMeals;
+    List<Meal> filteredData = List.from(dummyMeals);
+
+    emit(state.copyWith(isLoading: true));
+
     if (state.title.isNotEmpty) {
-      filteredData = listMeals
-          .where((meal) => meal.title
-              .toLowerCase()
-              .contains(state.title.toLowerCase().trim()))
-          .toList();
+      filteredData = [
+        ...filteredData.where((meal) =>
+            meal.title.toLowerCase().contains(state.title.toLowerCase().trim()))
+      ];
     }
-
     if (state.listSearchIngredients.isNotEmpty) {
-      print('MENCARI ${state.listSearchIngredients}');
-      filteredData = listMeals.where((meal) {
-        List<String> ingredientsToLowerCase =
-            meal.ingredients.map((item) => item.toLowerCase()).toList();
-        return state.listSearchIngredients
-            .every((itemSearch) => ingredientsToLowerCase.contains(itemSearch));
-      }).toList();
-      print(filteredData);
+      filteredData = [
+        ...filteredData.where((meal) {
+          List<String> ingredientsToLowerCase =
+              meal.ingredients.map((item) => item.toLowerCase()).toList();
+          return state.listSearchIngredients.every(
+              (itemSearch) => ingredientsToLowerCase.contains(itemSearch));
+        })
+      ];
     }
 
-    emit(state.copyWith(filteredData: filteredData));
+    emit(state.copyWith(isLoading: false));
+    emit(state.copyWith(
+      title: '',
+      listSearchIngredients: [],
+      filteredData: filteredData,
+    ));
   }
 
   void _onChangeIsAdvanceSearchActive(

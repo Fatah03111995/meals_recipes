@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meals_recipes/core/bloc/user/user.dart';
+import 'package:meals_recipes/core/data/models/user_model.dart';
 import 'package:meals_recipes/core/data/repositories/repo_user_connection.dart';
 import 'package:meals_recipes/global.dart';
 
@@ -22,7 +23,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           email: event.email, password: event.password);
 
       Global.globalPreferences.setUserToken(response.uid);
-      emit(UserStateDone(user: response));
+      emit(UserStateDone(
+          user: UserModel(
+        username: response.displayName ?? '',
+        email: response.email ?? '',
+      )));
     } catch (e) {
       emit(UserStateFailed());
     }
@@ -37,7 +42,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         password: event.password,
         confirmPassword: event.confimrPassword,
       );
-      emit(UserStateDone(user: response));
+      emit(UserStateDone(
+          user: UserModel(
+        username: response.displayName ?? '',
+        email: response.email ?? '',
+      )));
     } catch (e) {
       emit(UserStateFailed());
     }

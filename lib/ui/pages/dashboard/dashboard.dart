@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meals_recipes/core/bloc/theme/theme_cubit.dart';
 import 'package:meals_recipes/core/routes/app_routes.dart';
-import 'package:meals_recipes/core/routes/dashboard_entity.dart';
 import 'package:meals_recipes/core/themes/mode_themes.dart';
 import 'package:meals_recipes/ui/pages/dashboard/bloc/dashboard_bloc.dart';
 import 'package:meals_recipes/ui/pages/dashboard/widgets/dashboard_nav_bar.dart';

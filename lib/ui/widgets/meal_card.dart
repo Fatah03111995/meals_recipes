@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,12 +22,19 @@ class MealCard extends StatelessWidget {
         children: [
           Column(
             children: [
-              SizedBox(
+              CachedNetworkImage(
+                imageUrl: data.imageUrl,
                 height: 150.h,
-                child: Image.network(
-                  data.imageUrl,
-                  alignment: Alignment.topCenter,
-                  fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
+                fit: BoxFit.cover,
+                placeholder: (context, string) {
+                  return CircularProgressIndicator(
+                    color: appColor.textColor,
+                  );
+                },
+                errorWidget: (context, url, err) => Icon(
+                  Icons.error,
+                  color: appColor.textColor,
                 ),
               ),
               SizedBox(height: 10.h),
@@ -90,6 +98,20 @@ class MealCard extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              width: 30.w,
+              height: 30.w,
+              decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.6),
+                  borderRadius: BorderRadius.circular(5.w)),
+              child: const Icon(
+                Icons.favorite,
+                color: Colors.white,
+              ),
+            ),
           )
         ],
       ),

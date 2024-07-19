@@ -55,7 +55,7 @@ class SearchPage extends StatelessWidget {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        childAspectRatio: 0.6,
+                        childAspectRatio: 0.57,
                         mainAxisSpacing: 5,
                         crossAxisSpacing: 5,
                       ),
@@ -113,7 +113,6 @@ class SearchPage extends StatelessWidget {
                       child: RoundedRectangleButton(
                         text: '',
                         onTap: () {
-                          print('WORK');
                           context.read<SearchBloc>().add(
                               const SearchEventSearch(listData: dummyMeals));
                         },
