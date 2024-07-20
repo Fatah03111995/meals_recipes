@@ -16,8 +16,7 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WelcomeState welcomeState = context.watch<WelcomeBloc>().state;
-
+    PageController pageViewController = PageController();
     List<Widget> listPageView = [
       _pageViewItem(
         image: Assets.ui.employee6.image(
@@ -58,54 +57,78 @@ class WelcomePage extends StatelessWidget {
               margin: EdgeInsets.only(
                   top: kToolbarHeight + 70.h, right: 15.w, left: 15.w),
               width: 320.w,
-              child: PageView(
-                onPageChanged: (index) {
-                  context.read<WelcomeBloc>().add(ChangeIndex(index: index));
+              child: BlocBuilder<WelcomeBloc, WelcomeState>(
+                builder: (context, state) {
+                  return PageView(
+                    controller: pageViewController,
+                    onPageChanged: (index) {
+                      context
+                          .read<WelcomeBloc>()
+                          .add(ChangeIndex(index: index));
+                    },
+                    children: listPageView,
+                  );
                 },
-                children: listPageView,
               ),
             ),
-            if (welcomeState.index == listPageView.length - 1)
-              Positioned(
-                  bottom: 130.h,
-                  child: SizedBox(
-                    width: 300.w,
-                    height: 50.h,
-                    child: Material(
-                      color: MyColors.blue1,
-                      borderRadius: BorderRadius.circular(20.w),
-                      child: InkWell(
-                        onTap: () {
-                          Global.globalPreferences.setIsDeviceFirstOpen(false);
-                          Navigator.pushReplacementNamed(
-                              context, PathRoute.signIn);
-                        },
-                        splashColor: Colors.white.withOpacity(0.1),
+            BlocBuilder<WelcomeBloc, WelcomeState>(
+              builder: (context, state) {
+                int index = state.index;
+                bool isEndIndex = state.index == listPageView.length - 1;
+
+                return Positioned(
+                    bottom: 130.h,
+                    child: SizedBox(
+                      width: 300.w,
+                      height: 50.h,
+                      child: Material(
+                        color: MyColors.blue1,
                         borderRadius: BorderRadius.circular(20.w),
-                        child: Center(
-                          child: Text(
-                            'Get Started',
-                            style:
-                                Textstyles.mBold.copyWith(color: Colors.white),
+                        child: InkWell(
+                          onTap: isEndIndex
+                              ? () {
+                                  Global.globalPreferences
+                                      .setIsDeviceFirstOpen(false);
+                                  Navigator.pushReplacementNamed(
+                                      context, PathRoute.signIn);
+                                }
+                              : () => pageViewController.animateToPage(
+                                    index + 1,
+                                    duration: const Duration(milliseconds: 500),
+                                    curve: Curves.decelerate,
+                                  ),
+                          splashColor: Colors.white.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(20.w),
+                          child: Center(
+                            child: Text(
+                              isEndIndex ? 'Get Started' : 'Continue',
+                              style: Textstyles.mBold
+                                  .copyWith(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )),
-            Positioned(
-                bottom: 100.h,
-                child: DotsIndicator(
-                  dotsCount: listPageView.length,
-                  position: welcomeState.index,
-                  decorator: DotsDecorator(
-                    size: Size(8.w, 8.w),
-                    activeColor: MyColors.blue1,
-                    activeSize: Size(16.w, 8.w),
-                    activeShape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.w),
-                    ),
-                  ),
-                ))
+                    ));
+              },
+            ),
+            BlocBuilder<WelcomeBloc, WelcomeState>(
+              builder: (context, state) {
+                return Positioned(
+                    bottom: 100.h,
+                    child: DotsIndicator(
+                      dotsCount: listPageView.length,
+                      position: state.index,
+                      decorator: DotsDecorator(
+                        size: Size(8.w, 8.w),
+                        activeColor: MyColors.blue1,
+                        activeSize: Size(16.w, 8.w),
+                        activeShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.w),
+                        ),
+                      ),
+                    ));
+              },
+            )
           ],
         ),
       ),

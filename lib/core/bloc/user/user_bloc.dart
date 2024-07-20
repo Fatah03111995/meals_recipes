@@ -6,17 +6,13 @@ import 'package:meals_recipes/global.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserStateInitial()) {
-    on<UserEventSignIn>(_userEventSignInHandler);
-    on<UserEventSignUp>(_userEventSignUpHandler);
-    on<UserEventSignOut>(_userEventSignOutHandler);
-    on<UserEventIntial>(
-      (event, emit) {
-        emit(UserStateInitial());
-      },
-    );
+    on<UserEventSignIn>(_onUserEventSignInHandler);
+    on<UserEventSignUp>(_onUserEventSignUpHandler);
+    on<UserEventSignOut>(_onUserEventSignOutHandler);
+    on<UserEventChangeFavorite>(_onUserEventChangeFavoriteHandler);
   }
 
-  void _userEventSignInHandler(UserEventSignIn event, Emitter emit) async {
+  void _onUserEventSignInHandler(UserEventSignIn event, Emitter emit) async {
     emit(UserStateLoading());
     try {
       final response = await RepoUserConnection.signInByEmail(
@@ -33,7 +29,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }
   }
 
-  void _userEventSignUpHandler(UserEventSignUp event, Emitter emit) async {
+  void _onUserEventSignUpHandler(UserEventSignUp event, Emitter emit) async {
     emit(UserStateLoading());
     try {
       final response = await RepoUserConnection.signUp(
@@ -52,9 +48,34 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }
   }
 
-  void _userEventSignOutHandler(UserEventSignOut event, Emitter emit) async {
+  void _onUserEventSignOutHandler(UserEventSignOut event, Emitter emit) {
     emit(UserStateLoading());
     RepoUserConnection.signOut();
     emit(UserStateInitial());
+  }
+
+  void _onUserEventChangeFavoriteHandler(
+      UserEventChangeFavorite event, Emitter emit) {
+    UserState userState = state;
+
+    if (userState is UserStateDone) {
+      List<String> userFavorite = List.from(userState.user.favourite);
+      if (userFavorite.contains(event.id)) {
+        userFavorite.remove(event.id);
+      } else {
+        userFavorite.add(event.id);
+      }
+
+      UserModel updateData = userState.user.copyWith(favourite: userFavorite);
+
+      emit(UserStateDone(
+        user: updateData,
+      ));
+    }
+  }
+
+  @override
+  void onChange(Change<UserState> change) {
+    super.onChange(change);
   }
 }

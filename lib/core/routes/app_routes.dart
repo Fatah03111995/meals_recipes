@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:meals_recipes/core/routes/dashboard_entity.dart';
-import 'package:meals_recipes/core/routes/page_entity.dart';
-import 'package:meals_recipes/core/routes/path_route.dart';
 import 'package:meals_recipes/global.dart';
-import 'package:meals_recipes/ui/pages/pages.dart';
+import 'package:meals_recipes/lib.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meals_recipes/ui/pages/recipies/recipies_page.dart';
 
 class AppRoutes {
   final List<PageEntity> _allPageEntity = [
@@ -34,9 +30,22 @@ class AppRoutes {
         child: const SignUpPage(),
       ),
     ),
-    const PageEntity(
+    PageEntity(
       path: PathRoute.dashboard,
-      routes: Dashboard(),
+      routes: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => RecipiesBloc()
+              ..add(
+                RecipiesEventFetch(),
+              ),
+          ),
+          BlocProvider(
+            create: (context) => DashboardBloc(),
+          ),
+        ],
+        child: const Dashboard(),
+      ),
     )
   ];
 

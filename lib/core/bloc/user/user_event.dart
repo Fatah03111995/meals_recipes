@@ -33,3 +33,8 @@ class UserEventSignUp extends UserEvent {
 }
 
 class UserEventSignOut extends UserEvent {}
+
+class UserEventChangeFavorite extends UserEvent {
+  final String id;
+  const UserEventChangeFavorite({required this.id});
+}

@@ -10,4 +10,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   void _changeIndex(ChangeIndexDashboard event, Emitter emit) {
     emit(DashboardState(index: event.nextIndex));
   }
+
+  @override
+  void onChange(Change<DashboardState> change) {
+    super.onChange(change);
+  }
 }

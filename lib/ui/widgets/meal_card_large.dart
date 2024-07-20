@@ -13,8 +13,7 @@ class MealCardLarge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MyTheme appColor =
-        context.watch<ThemeCubit>().state.modeThemes ?? ModeThemes.lightMode;
+    MyTheme appColor = context.watch<ThemeCubit>().state.modeThemes;
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(

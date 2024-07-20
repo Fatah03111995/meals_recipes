@@ -21,7 +21,7 @@ class InputText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MyTheme appColor = ModeThemes.lightMode;
+    MyTheme appColor = LightMode();
 
     return Container(
       height: 50.w,
