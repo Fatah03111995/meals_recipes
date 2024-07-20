@@ -67,6 +67,20 @@ class HomePage extends StatelessWidget {
                                 color: appColor.textColor,
                               ),
                             ),
+                            BlocSelector<UserBloc, UserState, String>(
+                                selector: (state) {
+                              if (state is UserStateDone) {
+                                return state.user.username;
+                              }
+                              return '';
+                            }, builder: (context, userName) {
+                              return Text(
+                                userName,
+                                style: Textstyles.xlBold.copyWith(
+                                  color: appColor.textColor,
+                                ),
+                              );
+                            })
                           ],
                         )
                       ],
