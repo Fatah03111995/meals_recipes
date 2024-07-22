@@ -36,64 +36,80 @@ class FavouritePage extends StatelessWidget {
                     return userFav.contains(meal.id);
                   })
                 ];
-                return Stack(
-                  children: [
-                    Center(
-                      child: Container(
-                          margin: EdgeInsets.only(top: kToolbarHeight.h),
-                          width: 320.w,
-                          child: Builder(builder: (context) {
-                            if (state is RecipiesStateLoading) {
-                              return CircularProgressIndicator(
-                                  color: appColor.textColor);
-                            }
+                return BlocSelector<SearchBloc, SearchState, List<Meal>>(
+                  selector: (state) => state.filteredData,
+                  builder: (context, filteredData) {
+                    List<Meal> filteredMeal = userFavMeal;
+                    bool isInitialSearch =
+                        context.select<SearchBloc, bool>((bloc) {
+                      return bloc.state.isInitial;
+                    });
 
-                            if (userFavMeal.isEmpty) {
-                              return Center(
-                                child: Container(
-                                  padding: EdgeInsets.all(20.w),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.w),
-                                      color: appColor.containerColor
-                                          .withOpacity(0.5)),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Icon(
-                                        Icons.favorite,
-                                        size: 50,
-                                        color: Colors.red,
+                    if (!isInitialSearch) {
+                      filteredMeal = filteredData;
+                    }
+                    return Stack(
+                      children: [
+                        Center(
+                          child: Container(
+                              margin: EdgeInsets.only(top: kToolbarHeight.h),
+                              width: 320.w,
+                              child: Builder(builder: (context) {
+                                if (state is RecipiesStateLoading) {
+                                  return CircularProgressIndicator(
+                                      color: appColor.textColor);
+                                }
+
+                                if (filteredMeal.isEmpty) {
+                                  return Center(
+                                    child: Container(
+                                      padding: EdgeInsets.all(20.w),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.w),
+                                          color: appColor.containerColor
+                                              .withOpacity(0.5)),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Icon(
+                                            Icons.favorite,
+                                            size: 50,
+                                            color: Colors.red,
+                                          ),
+                                          Text(
+                                            'No Data Here',
+                                            style: Textstyles.lBold.copyWith(
+                                                color: appColor.textColor),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        'No Data Here',
-                                        style: Textstyles.lBold.copyWith(
-                                            color: appColor.textColor),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }
+                                    ),
+                                  );
+                                }
 
-                            return GridView.builder(
-                                itemCount: userFavMeal.length,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  mainAxisSpacing: 5,
-                                  crossAxisSpacing: 5,
-                                  childAspectRatio: 0.57,
-                                ),
-                                itemBuilder: (context, index) {
-                                  return MealCard(data: userFavMeal[index]);
-                                });
-                          })),
-                    ),
+                                return GridView.builder(
+                                    itemCount: filteredMeal.length,
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      mainAxisSpacing: 5,
+                                      crossAxisSpacing: 5,
+                                      childAspectRatio: 0.57,
+                                    ),
+                                    itemBuilder: (context, index) {
+                                      return MealCard(
+                                          data: filteredMeal[index]);
+                                    });
+                              })),
+                        ),
 
-                    // ------------------ SEARCH AND FILTER SECTION
-                    SearchSection(appColor: appColor, rawMeals: userFavMeal)
-                  ],
+                        // ------------------ SEARCH AND FILTER SECTION
+                        SearchSection(appColor: appColor, rawMeals: userFavMeal)
+                      ],
+                    );
+                  },
                 );
               },
             );

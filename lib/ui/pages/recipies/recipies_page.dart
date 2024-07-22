@@ -5,7 +5,6 @@ import 'package:meals_recipes/core/bloc/recipies/recipies_bloc.dart';
 import 'package:meals_recipes/core/bloc/recipies/recipies_state.dart';
 import 'package:meals_recipes/core/bloc/theme/theme_cubit.dart';
 import 'package:meals_recipes/core/bloc/theme/theme_state.dart';
-import 'package:meals_recipes/core/data/dummy.dart';
 import 'package:meals_recipes/core/data/models/meals_model.dart';
 import 'package:meals_recipes/core/themes/mode_themes.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';

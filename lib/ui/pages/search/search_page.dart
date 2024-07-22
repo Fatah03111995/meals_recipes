@@ -32,8 +32,15 @@ class SearchPage extends StatelessWidget {
                         return state.filteredData;
                       },
                       builder: (context, filteredData) {
-                        List<Meal> filteredMeal = filteredData;
+                        List<Meal> filteredMeal = meals;
+                        bool isInitialSearch =
+                            context.select<SearchBloc, bool>((bloc) {
+                          return bloc.state.isInitial;
+                        });
 
+                        if (!isInitialSearch) {
+                          filteredMeal = filteredData;
+                        }
                         return Container(
                           clipBehavior: Clip.hardEdge,
                           margin: EdgeInsets.only(top: kToolbarHeight + 30.h),
@@ -67,7 +74,7 @@ class SearchPage extends StatelessWidget {
                                 )
                               : GridView.builder(
                                   padding: const EdgeInsets.all(0),
-                                  itemCount: meals.length,
+                                  itemCount: filteredMeal.length,
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
@@ -77,7 +84,7 @@ class SearchPage extends StatelessWidget {
                                   ),
                                   itemBuilder: (context, index) {
                                     return MealCard(
-                                      data: meals[index],
+                                      data: filteredMeal[index],
                                     );
                                   }),
                         );

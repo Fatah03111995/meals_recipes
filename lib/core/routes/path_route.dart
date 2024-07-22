@@ -6,7 +6,7 @@ class PathRoute {
   static const String dashboard = '/dashboard';
   static const String home = '/home';
   static const String search = '/search';
-  static const String add = '/add';
+  static const String yourRecipe = '/yourRecipe';
   static const String favorites = '/favorites';
   static const String profile = '/profile';
   static const String settings = '/settings';

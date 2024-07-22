@@ -22,7 +22,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   void _onSearch(SearchEventSearch event, Emitter emit) {
-    List<Meal> filteredData = List.from(dummyMeals);
+    List<Meal> filteredData = List.from(event.listData);
 
     emit(state.copyWith(isLoading: true));
 
@@ -47,6 +47,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     emit(state.copyWith(
       title: '',
       listSearchIngredients: [],
+      isInitial: false,
       filteredData: filteredData,
     ));
   }
@@ -54,5 +55,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   void _onChangeIsAdvanceSearchActive(
       ChangeAdvanceSearchActive event, Emitter emit) {
     emit(state.copyWith(isAdvanceSearchActive: !state.isAdvanceSearchActive));
+  }
+
+  @override
+  void onChange(Change<SearchState> change) {
+    print(change);
+    super.onChange(change);
   }
 }

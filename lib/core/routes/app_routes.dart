@@ -95,6 +95,7 @@ class AppRoutes {
           icon: Icons.search,
           path: PathRoute.search,
           page: BlocProvider(
+            key: const ValueKey(PathRoute.search),
             create: (context) => SearchBloc(),
             child: const SearchPage(),
           ),
@@ -102,8 +103,9 @@ class AppRoutes {
         DashboardEntity(
           title: 'yours',
           icon: Icons.receipt,
-          path: PathRoute.add,
+          path: PathRoute.yourRecipe,
           page: BlocProvider(
+            key: const ValueKey(PathRoute.yourRecipe),
             create: (context) => SearchBloc(),
             child: const RecipiesPage(),
           ),
@@ -113,6 +115,7 @@ class AppRoutes {
           icon: Icons.favorite,
           path: PathRoute.favorites,
           page: BlocProvider(
+            key: const ValueKey(PathRoute.favorites),
             create: (context) => SearchBloc(),
             child: const FavouritePage(),
           ),
