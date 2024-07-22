@@ -10,4 +10,5 @@ class PathRoute {
   static const String favorites = '/favorites';
   static const String profile = '/profile';
   static const String settings = '/settings';
+  static const String recipyDetail = '/recipyDetail';
 }

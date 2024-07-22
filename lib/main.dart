@@ -13,7 +13,6 @@ void main() async {
       create: (_) => ThemeCubit(),
     ),
     BlocProvider(create: (_) => DashboardBloc()),
-    BlocProvider(create: (_) => SearchBloc()),
   ], child: const MainApp()));
 }
 

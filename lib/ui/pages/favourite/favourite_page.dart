@@ -11,64 +11,218 @@ class FavouritePage extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         MyTheme appColor = state.modeThemes;
-        return Center(
-          child: Container(
-            margin: EdgeInsets.only(top: kToolbarHeight.h),
-            width: 320.w,
-            child: Builder(builder: (context) {
-              //------------------------------ SELECTION USER FAV
-              List<String> userFav =
-                  context.select<UserBloc, List<String>>((bloc) {
-                UserState state = bloc.state;
-                if (state is UserStateDone) {
-                  return state.user.favourite;
-                }
-                return [];
-              });
+        return Container(
+          padding: const EdgeInsets.only(top: kToolbarHeight),
+          width: 320.w,
+          child: Stack(
+            children: [
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(top: kToolbarHeight.h),
+                  width: 320.w,
+                  child: BlocBuilder<RecipiesBloc, RecipiesState>(
+                    builder: (context, state) {
+                      List<Meal> meals = [];
 
-              bool isRecipiesStateLoading = false;
-              List<Meal> allMeals =
-                  context.select<RecipiesBloc, List<Meal>>((bloc) {
-                RecipiesState recipiesState = bloc.state;
-                if (recipiesState is RecipiesStateSuccess) {
-                  isRecipiesStateLoading = false;
-                  return recipiesState.listMeal;
-                }
-                if (recipiesState is RecipiesStateLoading) {
-                  isRecipiesStateLoading = true;
-                }
-                return [];
-              });
+                      if (state is RecipiesStateSuccess) {
+                        meals = state.listMeal;
+                      }
 
-              List<Meal> userFavMeal = [
-                ...allMeals.where((meal) {
-                  return userFav.contains(meal.id);
-                })
-              ];
+                      return BlocSelector<UserBloc, UserState, List<String>>(
+                        selector: (state) {
+                          if (state is UserStateDone) {
+                            return state.user.favourite;
+                          }
+                          return [];
+                        },
+                        builder: (context, userFav) {
+                          return Builder(builder: (context) {
+                            List<Meal> userFavMeal = [
+                              ...meals.where((meal) {
+                                return userFav.contains(meal.id);
+                              })
+                            ];
 
-              if (isRecipiesStateLoading) {
-                return CircularProgressIndicator(color: appColor.textColor);
-              }
+                            if (state is RecipiesStateLoading) {
+                              return CircularProgressIndicator(
+                                  color: appColor.textColor);
+                            }
 
-              if (userFavMeal.isEmpty) {
-                return Text(
-                  'No Data Here',
-                  style: Textstyles.lBold.copyWith(color: appColor.textColor),
-                );
-              }
+                            if (userFavMeal.isEmpty) {
+                              return Center(
+                                child: Container(
+                                  padding: EdgeInsets.all(20.w),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.w),
+                                      color: appColor.containerColor
+                                          .withOpacity(0.5)),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(
+                                        Icons.favorite,
+                                        size: 50,
+                                        color: Colors.red,
+                                      ),
+                                      Text(
+                                        'No Data Here',
+                                        style: Textstyles.lBold.copyWith(
+                                            color: appColor.textColor),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
 
-              return GridView.builder(
-                  itemCount: userFavMeal.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
-                    childAspectRatio: 0.57,
+                            return GridView.builder(
+                                itemCount: userFavMeal.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 5,
+                                  crossAxisSpacing: 5,
+                                  childAspectRatio: 0.57,
+                                ),
+                                itemBuilder: (context, index) {
+                                  return MealCard(data: userFavMeal[index]);
+                                });
+                          });
+                        },
+                      );
+                    },
                   ),
-                  itemBuilder: (context, index) {
-                    return MealCard(data: userFavMeal[index]);
-                  });
-            }),
+                ),
+              ),
+
+              // ------------------ SEARCH AND FILTER SECTION
+              BlocBuilder<SearchBloc, SearchState>(
+                builder: (context, state) {
+                  bool isAdvanceSearchActive = state.isAdvanceSearchActive;
+                  bool isLoading = state.isLoading;
+
+                  return Container(
+                    color: appColor.scaffoldBgColor,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: InputText(
+                                label: 'Search',
+                                hint: 'title...',
+                                onChanged: (value) {
+                                  context.read<SearchBloc>().add(
+                                      SearchEventOnChangeTitle(
+                                          title: value ?? ''));
+                                },
+                                suffixIcon: !isAdvanceSearchActive
+                                    ? isLoading
+                                        ? CircularProgressIndicator(
+                                            color: appColor.primaryColor,
+                                          )
+                                        : IconButton(
+                                            onPressed: () {
+                                              context.read<SearchBloc>().add(
+                                                  const SearchEventSearch(
+                                                      listData: dummyMeals));
+                                            },
+                                            icon: Icon(
+                                              Icons.search,
+                                              color: appColor.primaryColor,
+                                            ))
+                                    : null,
+                              ),
+                            ),
+                            SizedBox(width: 10.w),
+                            IconButton.filled(
+                                style: ButtonStyle(
+                                  backgroundColor: WidgetStatePropertyAll(
+                                      appColor.primaryColor),
+                                  shape: WidgetStatePropertyAll(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20.w),
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.tune,
+                                  size: 30,
+                                  color: Colors.white,
+                                ))
+                          ],
+                        ),
+                        if (isAdvanceSearchActive) SizedBox(height: 10.h),
+                        if (isAdvanceSearchActive)
+                          InputText(
+                              label: 'Ingredients',
+                              hint: 'egg, milk, butter, etc',
+                              onChanged: (value) {
+                                context.read<SearchBloc>().add(
+                                    SearchEventOnChangeIngredients(
+                                        ingredients: value ?? ''));
+                              }),
+                        if (isAdvanceSearchActive) SizedBox(height: 10.h),
+                        if (isAdvanceSearchActive)
+                          SizedBox(
+                            height: 40.h,
+                            child: RoundedRectangleButton(
+                              text: '',
+                              onTap: () {
+                                context.read<SearchBloc>().add(
+                                    const SearchEventSearch(
+                                        listData: dummyMeals));
+                              },
+                              titleButton: isLoading
+                                  ? CircularProgressIndicator(
+                                      color: appColor.primaryColor,
+                                    )
+                                  : Text(
+                                      'Search',
+                                      style: Textstyles.m
+                                          .copyWith(color: Colors.white),
+                                    ),
+                            ),
+                          ),
+                        SizedBox(height: 10.h),
+                        GestureDetector(
+                          onTap: () {
+                            context
+                                .read<SearchBloc>()
+                                .add(ChangeAdvanceSearchActive());
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: double.infinity,
+                            height: 15.h,
+                            decoration: BoxDecoration(
+                              color: appColor.secondaryButtonColor,
+                              borderRadius: BorderRadius.circular(20.w),
+                            ),
+                            child: isAdvanceSearchActive
+                                ? Icon(
+                                    Icons.keyboard_arrow_up,
+                                    size: 20.w,
+                                    color: appColor.textColor,
+                                  )
+                                : Icon(
+                                    Icons.keyboard_arrow_down,
+                                    size: 20.w,
+                                    color: appColor.textColor,
+                                  ),
+                          ),
+                        ),
+                        SizedBox(height: 10.h)
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         );
       },

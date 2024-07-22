@@ -46,7 +46,8 @@ class AppRoutes {
         ],
         child: const Dashboard(),
       ),
-    )
+    ),
+    const PageEntity(path: PathRoute.recipyDetail, routes: RecipeDetail())
   ];
 
   List<PageEntity> _getPageEntity({String? path = ''}) =>
@@ -89,23 +90,32 @@ class AppRoutes {
           page: HomePage(),
           icon: Icons.home,
         ),
-        const DashboardEntity(
+        DashboardEntity(
           title: 'Search',
           icon: Icons.search,
           path: PathRoute.search,
-          page: SearchPage(),
+          page: BlocProvider(
+            create: (context) => SearchBloc(),
+            child: const SearchPage(),
+          ),
         ),
-        const DashboardEntity(
+        DashboardEntity(
           title: 'yours',
           icon: Icons.receipt,
           path: PathRoute.add,
-          page: RecipiesPage(),
+          page: BlocProvider(
+            create: (context) => SearchBloc(),
+            child: const RecipiesPage(),
+          ),
         ),
-        const DashboardEntity(
+        DashboardEntity(
           title: 'Love',
           icon: Icons.favorite,
           path: PathRoute.favorites,
-          page: FavouritePage(),
+          page: BlocProvider(
+            create: (context) => SearchBloc(),
+            child: const FavouritePage(),
+          ),
         ),
         const DashboardEntity(
           title: 'profile',
