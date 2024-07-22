@@ -114,6 +114,13 @@ class HomePage extends StatelessWidget {
                                 meals = state.listMeal;
                               }
 
+                              if (meals.isEmpty) {
+                                return Text(
+                                  'no Data',
+                                  style: Textstyles.s
+                                      .copyWith(color: appColor.textColor),
+                                );
+                              }
                               return MealCardLarge(data: meals[index + 2]);
                             },
                           );
