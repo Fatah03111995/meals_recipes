@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_recipes/lib.dart';
+import 'package:meals_recipes/ui/widgets/search_section.dart';
 
 class FavouritePage extends StatelessWidget {
   const FavouritePage({super.key});
@@ -14,35 +15,34 @@ class FavouritePage extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.only(top: kToolbarHeight),
           width: 320.w,
-          child: Stack(
-            children: [
-              Center(
-                child: Container(
-                  margin: EdgeInsets.only(top: kToolbarHeight.h),
-                  width: 320.w,
-                  child: BlocBuilder<RecipiesBloc, RecipiesState>(
-                    builder: (context, state) {
-                      List<Meal> meals = [];
+          child: BlocBuilder<RecipiesBloc, RecipiesState>(
+              builder: (context, state) {
+            List<Meal> meals = [];
 
-                      if (state is RecipiesStateSuccess) {
-                        meals = state.listMeal;
-                      }
+            if (state is RecipiesStateSuccess) {
+              meals = state.listMeal;
+            }
 
-                      return BlocSelector<UserBloc, UserState, List<String>>(
-                        selector: (state) {
-                          if (state is UserStateDone) {
-                            return state.user.favourite;
-                          }
-                          return [];
-                        },
-                        builder: (context, userFav) {
-                          return Builder(builder: (context) {
-                            List<Meal> userFavMeal = [
-                              ...meals.where((meal) {
-                                return userFav.contains(meal.id);
-                              })
-                            ];
-
+            return BlocSelector<UserBloc, UserState, List<String>>(
+              selector: (state) {
+                if (state is UserStateDone) {
+                  return state.user.favourite;
+                }
+                return [];
+              },
+              builder: (context, userFav) {
+                List<Meal> userFavMeal = [
+                  ...meals.where((meal) {
+                    return userFav.contains(meal.id);
+                  })
+                ];
+                return Stack(
+                  children: [
+                    Center(
+                      child: Container(
+                          margin: EdgeInsets.only(top: kToolbarHeight.h),
+                          width: 320.w,
+                          child: Builder(builder: (context) {
                             if (state is RecipiesStateLoading) {
                               return CircularProgressIndicator(
                                   color: appColor.textColor);
@@ -88,142 +88,16 @@ class FavouritePage extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   return MealCard(data: userFavMeal[index]);
                                 });
-                          });
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ),
-
-              // ------------------ SEARCH AND FILTER SECTION
-              BlocBuilder<SearchBloc, SearchState>(
-                builder: (context, state) {
-                  bool isAdvanceSearchActive = state.isAdvanceSearchActive;
-                  bool isLoading = state.isLoading;
-
-                  return Container(
-                    color: appColor.scaffoldBgColor,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: InputText(
-                                label: 'Search',
-                                hint: 'title...',
-                                onChanged: (value) {
-                                  context.read<SearchBloc>().add(
-                                      SearchEventOnChangeTitle(
-                                          title: value ?? ''));
-                                },
-                                suffixIcon: !isAdvanceSearchActive
-                                    ? isLoading
-                                        ? CircularProgressIndicator(
-                                            color: appColor.primaryColor,
-                                          )
-                                        : IconButton(
-                                            onPressed: () {
-                                              context.read<SearchBloc>().add(
-                                                  const SearchEventSearch(
-                                                      listData: dummyMeals));
-                                            },
-                                            icon: Icon(
-                                              Icons.search,
-                                              color: appColor.primaryColor,
-                                            ))
-                                    : null,
-                              ),
-                            ),
-                            SizedBox(width: 10.w),
-                            IconButton.filled(
-                                style: ButtonStyle(
-                                  backgroundColor: WidgetStatePropertyAll(
-                                      appColor.primaryColor),
-                                  shape: WidgetStatePropertyAll(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20.w),
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.tune,
-                                  size: 30,
-                                  color: Colors.white,
-                                ))
-                          ],
-                        ),
-                        if (isAdvanceSearchActive) SizedBox(height: 10.h),
-                        if (isAdvanceSearchActive)
-                          InputText(
-                              label: 'Ingredients',
-                              hint: 'egg, milk, butter, etc',
-                              onChanged: (value) {
-                                context.read<SearchBloc>().add(
-                                    SearchEventOnChangeIngredients(
-                                        ingredients: value ?? ''));
-                              }),
-                        if (isAdvanceSearchActive) SizedBox(height: 10.h),
-                        if (isAdvanceSearchActive)
-                          SizedBox(
-                            height: 40.h,
-                            child: RoundedRectangleButton(
-                              text: '',
-                              onTap: () {
-                                context.read<SearchBloc>().add(
-                                    const SearchEventSearch(
-                                        listData: dummyMeals));
-                              },
-                              titleButton: isLoading
-                                  ? CircularProgressIndicator(
-                                      color: appColor.primaryColor,
-                                    )
-                                  : Text(
-                                      'Search',
-                                      style: Textstyles.m
-                                          .copyWith(color: Colors.white),
-                                    ),
-                            ),
-                          ),
-                        SizedBox(height: 10.h),
-                        GestureDetector(
-                          onTap: () {
-                            context
-                                .read<SearchBloc>()
-                                .add(ChangeAdvanceSearchActive());
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: double.infinity,
-                            height: 15.h,
-                            decoration: BoxDecoration(
-                              color: appColor.secondaryButtonColor,
-                              borderRadius: BorderRadius.circular(20.w),
-                            ),
-                            child: isAdvanceSearchActive
-                                ? Icon(
-                                    Icons.keyboard_arrow_up,
-                                    size: 20.w,
-                                    color: appColor.textColor,
-                                  )
-                                : Icon(
-                                    Icons.keyboard_arrow_down,
-                                    size: 20.w,
-                                    color: appColor.textColor,
-                                  ),
-                          ),
-                        ),
-                        SizedBox(height: 10.h)
-                      ],
+                          })),
                     ),
-                  );
-                },
-              ),
-            ],
-          ),
+
+                    // ------------------ SEARCH AND FILTER SECTION
+                    SearchSection(appColor: appColor, rawMeals: userFavMeal)
+                  ],
+                );
+              },
+            );
+          }),
         );
       },
     );
