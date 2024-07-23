@@ -27,12 +27,14 @@ Resources
 
 Light Mode
 
+
 ![image](https://github.com/user-attachments/assets/042063e5-5f67-4cc0-8755-ea5065f49565)
 ![image](https://github.com/user-attachments/assets/ed88921d-75ba-4899-b774-6830c142bd87)
 ![image](https://github.com/user-attachments/assets/89cd41b7-35b9-43e6-9a2d-cbfe3309508e)
-![image](https://github.com/user-attachments/assets/6c8c7611-91c0-4339-b084-6acc283e7ec0)
+
 
 Dark Mode
+
 
 ![image](https://github.com/user-attachments/assets/3351d34c-7d66-4255-b69b-1e6e07eb2985)
 ![image](https://github.com/user-attachments/assets/cb34e556-c8bb-4de1-aaf6-717bd1f5f0a1)
