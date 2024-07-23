@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meals_recipes/core/data/models/meals_model.dart';
-import 'package:meals_recipes/ui/pages/search/bloc/search_event.dart';
-import 'package:meals_recipes/ui/pages/search/bloc/search_state.dart';
+import 'package:meals_recipes/core/bloc/search/search_event.dart';
+import 'package:meals_recipes/core/bloc/search/search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc() : super(const SearchState()) {

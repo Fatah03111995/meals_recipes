@@ -7,9 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:meals_recipes/core/data/models/meals_model.dart';
 import 'package:meals_recipes/core/themes/mode_themes.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
-import 'package:meals_recipes/ui/pages/search/bloc/search_bloc.dart';
-import 'package:meals_recipes/ui/pages/search/bloc/search_event.dart';
-import 'package:meals_recipes/ui/pages/search/bloc/search_state.dart';
+import 'package:meals_recipes/core/bloc/search/search_bloc.dart';
+import 'package:meals_recipes/core/bloc/search/search_event.dart';
+import 'package:meals_recipes/core/bloc/search/search_state.dart';
 import 'package:meals_recipes/ui/widgets/input_text.dart';
 import 'package:meals_recipes/ui/widgets/rounded_rectangle_button.dart';
 

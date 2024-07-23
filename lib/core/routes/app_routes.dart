@@ -47,7 +47,6 @@ class AppRoutes {
         child: const Dashboard(),
       ),
     ),
-    const PageEntity(path: PathRoute.recipyDetail, routes: RecipeDetail())
   ];
 
   List<PageEntity> _getPageEntity({String? path = ''}) =>

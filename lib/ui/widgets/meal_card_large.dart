@@ -10,6 +10,7 @@ import 'package:meals_recipes/core/data/models/meals_model.dart';
 import 'package:meals_recipes/core/routes/path_route.dart';
 import 'package:meals_recipes/core/themes/mode_themes.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
+import 'package:meals_recipes/ui/pages/recipe_detail/recipe_detail_page.dart';
 
 class MealCardLarge extends StatelessWidget {
   final Meal data;
@@ -20,7 +21,14 @@ class MealCardLarge extends StatelessWidget {
     MyTheme appColor = context.watch<ThemeCubit>().state.modeThemes;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, PathRoute.recipyDetail, arguments: data);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RecipeDetailPage(
+              data: data,
+            ),
+          ),
+        );
       },
       child: Container(
         clipBehavior: Clip.hardEdge,

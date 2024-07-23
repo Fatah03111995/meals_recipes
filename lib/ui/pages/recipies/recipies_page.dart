@@ -8,8 +8,8 @@ import 'package:meals_recipes/core/bloc/theme/theme_state.dart';
 import 'package:meals_recipes/core/data/models/meals_model.dart';
 import 'package:meals_recipes/core/themes/mode_themes.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
-import 'package:meals_recipes/ui/pages/search/bloc/search_bloc.dart';
-import 'package:meals_recipes/ui/pages/search/bloc/search_state.dart';
+import 'package:meals_recipes/core/bloc/search/search_bloc.dart';
+import 'package:meals_recipes/core/bloc/search/search_state.dart';
 import 'package:meals_recipes/ui/widgets/generated/assets.gen.dart';
 import 'package:meals_recipes/ui/widgets/search_section.dart';
 

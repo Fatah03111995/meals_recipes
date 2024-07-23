@@ -35,7 +35,7 @@ export 'ui/pages/pages.dart';
 export 'ui/pages/profile/profile_page.dart';
 export 'ui/pages/profile/widgets/profile_item.dart';
 export 'ui/pages/recipe_add/recipe_add.dart';
-export 'ui/pages/recipe_detail/recipe_detail.dart';
+export 'ui/pages/recipe_detail/recipe_detail_page.dart';
 export 'ui/pages/recipe_edit/recipe_edit.dart';
 export 'ui/pages/recipies/recipies_page.dart';
 export 'ui/pages/search/search_page.dart';
