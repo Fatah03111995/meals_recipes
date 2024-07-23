@@ -90,7 +90,13 @@ class RecipiesPage extends StatelessWidget {
                   ),
 
                   // ------------------ SEARCH AND FILTER SECTION
-                  SearchSection(appColor: appColor, rawMeals: meals)
+                  SearchSection(
+                    appColor: appColor,
+                    rawMeals: meals,
+                    activatedDrawer: () {
+                      Scaffold.of(context).openEndDrawer();
+                    },
+                  )
                 ],
               );
             },

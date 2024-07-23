@@ -106,7 +106,13 @@ class FavouritePage extends StatelessWidget {
                         ),
 
                         // ------------------ SEARCH AND FILTER SECTION
-                        SearchSection(appColor: appColor, rawMeals: userFavMeal)
+                        SearchSection(
+                          appColor: appColor,
+                          rawMeals: userFavMeal,
+                          activatedDrawer: () {
+                            Scaffold.of(context).openEndDrawer();
+                          },
+                        )
                       ],
                     );
                   },

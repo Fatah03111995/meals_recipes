@@ -16,11 +16,12 @@ import 'package:meals_recipes/ui/widgets/rounded_rectangle_button.dart';
 class SearchSection extends StatelessWidget {
   final MyTheme appColor;
   final List<Meal> rawMeals;
-  const SearchSection({
-    super.key,
-    required this.appColor,
-    required this.rawMeals,
-  });
+  final void Function() activatedDrawer;
+  const SearchSection(
+      {super.key,
+      required this.appColor,
+      required this.rawMeals,
+      required this.activatedDrawer});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class SearchSection extends StatelessWidget {
                           ),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: activatedDrawer,
                       icon: const Icon(
                         Icons.tune,
                         size: 30,

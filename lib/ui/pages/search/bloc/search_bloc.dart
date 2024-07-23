@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meals_recipes/core/data/dummy.dart';
 import 'package:meals_recipes/core/data/models/meals_model.dart';
 import 'package:meals_recipes/ui/pages/search/bloc/search_event.dart';
 import 'package:meals_recipes/ui/pages/search/bloc/search_state.dart';
@@ -59,7 +58,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   @override
   void onChange(Change<SearchState> change) {
-    print(change);
     super.onChange(change);
   }
 }
