@@ -113,9 +113,13 @@ class AppRoutes {
           title: 'Love',
           icon: Icons.favorite,
           path: PathRoute.favorites,
-          page: BlocProvider(
-            key: const ValueKey(PathRoute.favorites),
-            create: (context) => SearchBloc(),
+          page: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                key: const ValueKey(PathRoute.favorites),
+                create: (context) => SearchBloc(),
+              ),
+            ],
             child: const FavouritePage(),
           ),
         ),

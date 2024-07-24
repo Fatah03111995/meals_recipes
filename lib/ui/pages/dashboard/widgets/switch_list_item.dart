@@ -38,8 +38,15 @@ class SwitchListItem extends StatelessWidget {
 }
 
 class SwitchItemData {
+  final bool value;
   final String title;
   final String subtitle;
+  final Function(bool) onChanged;
 
-  const SwitchItemData({required this.title, required this.subtitle});
+  const SwitchItemData({
+    required this.value,
+    required this.title,
+    required this.subtitle,
+    required this.onChanged,
+  });
 }

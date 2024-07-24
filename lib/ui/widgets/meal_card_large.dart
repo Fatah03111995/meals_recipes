@@ -7,7 +7,6 @@ import 'package:meals_recipes/core/bloc/user/user_bloc.dart';
 import 'package:meals_recipes/core/bloc/user/user_event.dart';
 import 'package:meals_recipes/core/bloc/user/user_state.dart';
 import 'package:meals_recipes/core/data/models/meals_model.dart';
-import 'package:meals_recipes/core/routes/path_route.dart';
 import 'package:meals_recipes/core/themes/mode_themes.dart';
 import 'package:meals_recipes/core/themes/textstyles.dart';
 import 'package:meals_recipes/ui/pages/recipe_detail/recipe_detail_page.dart';

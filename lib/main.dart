@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/bloc/filter/filter_bloc.dart';
 import 'package:meals_recipes/global.dart';
 import 'package:meals_recipes/lib.dart';
 
@@ -13,6 +14,7 @@ void main() async {
       create: (_) => ThemeCubit(),
     ),
     BlocProvider(create: (_) => DashboardBloc()),
+    BlocProvider(create: (_) => FilterBloc()),
   ], child: const MainApp()));
 }
 

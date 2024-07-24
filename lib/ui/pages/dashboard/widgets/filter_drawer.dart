@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/bloc/filter/filter_bloc.dart';
+import 'package:meals_recipes/core/bloc/filter/filter_event.dart';
+import 'package:meals_recipes/core/bloc/filter/filter_state.dart';
 import 'package:meals_recipes/core/bloc/theme/theme_cubit.dart';
 import 'package:meals_recipes/core/bloc/theme/theme_state.dart';
 import 'package:meals_recipes/core/themes/mode_themes.dart';
@@ -12,16 +15,6 @@ class FilterDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<SwitchItemData> listSwitchItemData = [
-      const SwitchItemData(
-          title: 'Gluten Free', subtitle: 'Only include gluten free meals'),
-      const SwitchItemData(
-          title: 'Lactose Free', subtitle: 'Only include lactose free meals'),
-      const SwitchItemData(title: 'Vegan', subtitle: 'Only Vegetable'),
-      const SwitchItemData(
-          title: 'Vegetarian', subtitle: 'Only Vegetable, include egg, milk'),
-    ];
-
     return BlocBuilder<ThemeCubit, ThemeState>(
       builder: (context, state) {
         MyTheme appColor = state.modeThemes;
@@ -60,16 +53,59 @@ class FilterDrawer extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                      itemCount: listSwitchItemData.length,
-                      itemBuilder: (context, index) {
-                        return SwitchListItem(
-                            appColor: appColor,
-                            title: listSwitchItemData[index].title,
-                            subtitle: listSwitchItemData[index].subtitle,
-                            value: true,
-                            onChanged: (newBool) {});
-                      }),
+                  child: BlocBuilder<FilterBloc, FilterState>(
+                    builder: (context, state) {
+                      List<SwitchItemData> listSwitchItemData = [
+                        SwitchItemData(
+                            title: 'Gluten Free',
+                            subtitle: 'Only include gluten free meals',
+                            value: state.isGlutenFree,
+                            onChanged: (newBool) {
+                              print('work');
+                              print(newBool);
+                              context.read<FilterBloc>().add(
+                                  FilterEventGlutenFree(isGlutenFree: newBool));
+                            }),
+                        SwitchItemData(
+                          title: 'Lactose Free',
+                          subtitle: 'Only include lactose free meals',
+                          value: state.isLactoseFree,
+                          onChanged: (newBool) => context
+                              .read<FilterBloc>()
+                              .add(FilterEventLactoseFree(
+                                  isLactoseFree: newBool)),
+                        ),
+                        SwitchItemData(
+                          title: 'Vegan',
+                          subtitle: 'Only Vegetable',
+                          value: state.isVegan,
+                          onChanged: (newBool) => context
+                              .read<FilterBloc>()
+                              .add(FilterEventVegan(isVegan: newBool)),
+                        ),
+                        SwitchItemData(
+                          title: 'Vegetarian',
+                          subtitle: 'Only Vegetable, include egg, milk',
+                          value: state.isVegetarian,
+                          onChanged: (newBool) => context
+                              .read<FilterBloc>()
+                              .add(
+                                  FilterEventVegetarian(isVegetarian: newBool)),
+                        ),
+                      ];
+
+                      return ListView.builder(
+                          itemCount: listSwitchItemData.length,
+                          itemBuilder: (context, index) {
+                            return SwitchListItem(
+                                appColor: appColor,
+                                title: listSwitchItemData[index].title,
+                                subtitle: listSwitchItemData[index].subtitle,
+                                value: listSwitchItemData[index].value,
+                                onChanged: listSwitchItemData[index].onChanged);
+                          });
+                    },
+                  ),
                 )
               ],
             ));
