@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/bloc/filter/filter_bloc.dart';
+import 'package:meals_recipes/core/bloc/filter/filter_state.dart';
 import 'package:meals_recipes/core/bloc/recipies/recipies_bloc.dart';
 import 'package:meals_recipes/core/bloc/recipies/recipies_state.dart';
 import 'package:meals_recipes/core/bloc/theme/theme_cubit.dart';
@@ -36,11 +38,28 @@ class RecipiesPage extends StatelessWidget {
                 children: [
                   BlocSelector<SearchBloc, SearchState, List<Meal>>(
                     selector: (state) {
-                      return state.filteredData;
+                      return state.resultSearch;
                     },
-                    builder: (context, filteredData) {
-                      List<Meal> filteredMeal = filteredData;
+                    builder: (context, resultSearch) {
+                      List<Meal> resultedData = resultSearch;
 
+                      FilterState filterState =
+                          context.watch<FilterBloc>().state;
+                      resultedData = resultedData.where((meal) {
+                        if (filterState.isGlutenFree && !meal.isGlutenFree) {
+                          return false;
+                        }
+                        if (filterState.isLactoseFree && !meal.isLactoseFree) {
+                          return false;
+                        }
+                        if (filterState.isVegan && !meal.isVegan) {
+                          return false;
+                        }
+                        if (filterState.isVegetarian && !meal.isVegetarian) {
+                          return false;
+                        }
+                        return true;
+                      }).toList();
                       return Center(
                           child: Container(
                         padding: EdgeInsets.all(10.w),

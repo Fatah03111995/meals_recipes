@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:meals_recipes/core/bloc/filter/filter_bloc.dart';
+import 'package:meals_recipes/core/bloc/filter/filter_state.dart';
 import 'package:meals_recipes/lib.dart';
 import 'package:meals_recipes/ui/widgets/search_section.dart';
 
@@ -29,18 +31,38 @@ class SearchPage extends StatelessWidget {
                     // -------------------------- SEARCH AND FILTER RESULT
                     BlocSelector<SearchBloc, SearchState, List<Meal>>(
                       selector: (state) {
-                        return state.filteredData;
+                        return state.resultSearch;
                       },
-                      builder: (context, filteredData) {
-                        List<Meal> filteredMeal = meals;
+                      builder: (context, resultSearch) {
+                        List<Meal> resultedData = meals;
                         bool isInitialSearch =
                             context.select<SearchBloc, bool>((bloc) {
                           return bloc.state.isInitial;
                         });
 
                         if (!isInitialSearch) {
-                          filteredMeal = filteredData;
+                          resultedData = resultSearch;
                         }
+
+                        FilterState filterState =
+                            context.watch<FilterBloc>().state;
+                        resultedData = resultedData.where((meal) {
+                          if (filterState.isGlutenFree && !meal.isGlutenFree) {
+                            return false;
+                          }
+                          if (filterState.isLactoseFree &&
+                              !meal.isLactoseFree) {
+                            return false;
+                          }
+                          if (filterState.isVegan && !meal.isVegan) {
+                            return false;
+                          }
+                          if (filterState.isVegetarian && !meal.isVegetarian) {
+                            return false;
+                          }
+                          return true;
+                        }).toList();
+
                         return Container(
                           clipBehavior: Clip.hardEdge,
                           margin: EdgeInsets.only(top: kToolbarHeight + 30.h),
@@ -49,7 +71,7 @@ class SearchPage extends StatelessWidget {
                               top: Radius.circular(10.w),
                             ),
                           ),
-                          child: filteredMeal.isEmpty
+                          child: resultedData.isEmpty
                               ? Center(
                                   child: Container(
                                     padding: EdgeInsets.all(10.w),
@@ -74,7 +96,7 @@ class SearchPage extends StatelessWidget {
                                 )
                               : GridView.builder(
                                   padding: const EdgeInsets.all(0),
-                                  itemCount: filteredMeal.length,
+                                  itemCount: resultedData.length,
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
@@ -84,7 +106,7 @@ class SearchPage extends StatelessWidget {
                                   ),
                                   itemBuilder: (context, index) {
                                     return MealCard(
-                                      data: filteredMeal[index],
+                                      data: resultedData[index],
                                     );
                                   }),
                         );

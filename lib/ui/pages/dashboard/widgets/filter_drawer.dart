@@ -61,8 +61,6 @@ class FilterDrawer extends StatelessWidget {
                             subtitle: 'Only include gluten free meals',
                             value: state.isGlutenFree,
                             onChanged: (newBool) {
-                              print('work');
-                              print(newBool);
                               context.read<FilterBloc>().add(
                                   FilterEventGlutenFree(isGlutenFree: newBool));
                             }),

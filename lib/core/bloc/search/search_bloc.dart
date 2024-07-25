@@ -21,19 +21,19 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   void _onSearch(SearchEventSearch event, Emitter emit) {
-    List<Meal> filteredData = List.from(event.listData);
+    List<Meal> resultSearch = List.from(event.listData);
 
     emit(state.copyWith(isLoading: true));
 
     if (state.title.isNotEmpty) {
-      filteredData = [
-        ...filteredData.where((meal) =>
+      resultSearch = [
+        ...resultSearch.where((meal) =>
             meal.title.toLowerCase().contains(state.title.toLowerCase().trim()))
       ];
     }
     if (state.listSearchIngredients.isNotEmpty) {
-      filteredData = [
-        ...filteredData.where((meal) {
+      resultSearch = [
+        ...resultSearch.where((meal) {
           List<String> ingredientsToLowerCase =
               meal.ingredients.map((item) => item.toLowerCase()).toList();
           return state.listSearchIngredients.every(
@@ -47,7 +47,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       title: '',
       listSearchIngredients: [],
       isInitial: false,
-      filteredData: filteredData,
+      resultSearch: resultSearch,
     ));
   }
 
